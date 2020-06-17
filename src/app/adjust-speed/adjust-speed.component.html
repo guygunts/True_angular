@@ -20,10 +20,12 @@
           <div class="form-group">
             <label >ExporationTime</label>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-3">
             <select class="form-control border-primary">
-              <option *ngFor='let  in of counter(91); let i = index;' value="{{i}}">{{i}}</option>
+              <ng-template ngFor let-item [ngForOf]="counter(91)" let-i="index">
+                <option  value="{{i}}">{{i}}</option>
+              </ng-template>
             </select>
             </div>
 
@@ -33,7 +35,9 @@
 
             <div class="col-3">
                 <select class="form-control border-primary">
-                  <option *ngFor='let  in of counter(24); let i = index;' value="{{i}}">{{i}}</option>
+                  <ng-template ngFor let-item [ngForOf]="counter(24)" let-i="index">
+                    <option  value="{{i}}">{{i}}</option>
+                  </ng-template>
                 </select>
                 </div>
 
@@ -43,14 +47,16 @@
 
                 <div class="col-3" >
                   <select class="form-control border-primary">
-                    <option *ngFor='let  in of counter(60); let i = index;' value="{{i}}">{{i}}</option>
+                    <ng-template ngFor let-item [ngForOf]="counter(60)" let-i="index">
+                      <option  value="{{i}}">{{i}}</option>
+                    </ng-template>
                   </select>
                   </div>
                   
                   <div >
                       <label>Minute.</label>
                   </div>
-        </div>
+        </div> -->
           <div class="form-group">
             <label >MaxMediaRateKbps</label>
             <input numeric type="text" class="form-control" formControlName="maxMediaRateKbps" placeholder="Ex.300" onKeyPress="if(this.value.length==4) return false;">
