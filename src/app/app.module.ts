@@ -17,6 +17,13 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 
+
+
+//////////////////primeng///////////////////////////
+import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
+///////////////////////////////////////////////////
+
+
 import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
 import { GeneratelicenseComponent } from './generatelicense/generatelicense.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -50,7 +57,9 @@ import { NumericDirective } from './numeric.directive';
     MatNativeDateModule,
     MatExpansionModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AccordionModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

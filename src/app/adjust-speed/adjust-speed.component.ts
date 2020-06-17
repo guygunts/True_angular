@@ -15,6 +15,7 @@ export class AdjustSpeedComponent implements OnInit {
   submitted = false;
   con = true
   datafromfile = []
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -35,6 +36,10 @@ export class AdjustSpeedComponent implements OnInit {
       cpidState: ['None']
     });
     console.log(this.loginForm.value.type)
+  }
+
+  counter(i: number) {
+    return new Array(i).map(x => i + 1);
   }
   get f() { return this.loginForm.controls; }
 

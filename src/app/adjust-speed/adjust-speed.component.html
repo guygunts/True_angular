@@ -21,22 +21,35 @@
             <label >ExporationTime</label>
         </div>
         <div class="row">
-            <div class="col-2">
-            <input numeric type="text" class="form-control" formControlName="expirationTime" placeholder="0-23" max="23" maxlength="2">
-            </div>
             <div class="col-3">
-            <select class="form-control border-primary" disabled>
-                <option>Hr.</option>
-              </select>
+            <select class="form-control border-primary">
+              <option *ngFor='let  in of counter(91); let i = index;' value="{{i}}">{{i}}</option>
+            </select>
             </div>
-            <div class="col-2">
-                <input numeric type="text" class="form-control" formControlName="expirationTime" placeholder="1-59" max="59" maxlength="2">
+
+            <div>
+              <label >Day.</label>
+            </div>
+
+            <div class="col-3">
+                <select class="form-control border-primary">
+                  <option *ngFor='let  in of counter(24); let i = index;' value="{{i}}">{{i}}</option>
+                </select>
                 </div>
-                <div class="col-3">
-                <select class="form-control border-primary" disabled>
-                    <option>Minute.</option>
+
+                <div>          
+                    <label>Hr.</label>
+                </div>
+
+                <div class="col-3" >
+                  <select class="form-control border-primary">
+                    <option *ngFor='let  in of counter(60); let i = index;' value="{{i}}">{{i}}</option>
                   </select>
-                </div>
+                  </div>
+                  
+                  <div >
+                      <label>Minute.</label>
+                  </div>
         </div>
           <div class="form-group">
             <label >MaxMediaRateKbps</label>
