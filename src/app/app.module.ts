@@ -20,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 //////////////////primeng///////////////////////////
-import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
+import { AccordionModule } from 'primeng/accordion';
+import { MenuModule } from 'primeng/menu';
 ///////////////////////////////////////////////////
 
 
@@ -59,6 +60,7 @@ import { NumericDirective } from './numeric.directive';
     HttpClientModule,
     ReactiveFormsModule,
     AccordionModule,
+    MenuModule
 
   ],
   providers: [],
