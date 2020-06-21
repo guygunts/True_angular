@@ -79,9 +79,6 @@ $star-admin-angular-theme: mat-light-theme($star-admin-angular-primary, $star-ad
 @import "./assets/styles/demo";
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%;
-    background: #ecedf0; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html,
 body {
   height: 100%;
@@ -90,7 +87,7 @@ body {
 }
 
 body {
-  background-color:#f5f5ef;
+  background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

@@ -5,24 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
+
 export class SidebarComponent implements OnInit {
   constructor() { }
   items;
+  menu;
+  object: {[key: number]: object} = {2: {"menu":"/AdjustSpeed","name":"Adjust Speed"}, 1: {"menu":"/Generatelicense","name":"generate license"}};
+  heroes = ['Windstorm', 'Bombasto', 'Magneta', 'Tornado'];
   ngOnInit() {
-    this.items = [{
-      label: 'File',
-      items: [
-        { label: 'New', icon: 'pi pi-plus' },
-        { label: 'Open', icon: 'pi pi-download' }
-      ]
-    },
-    {
-      label: 'Edit',
-      items: [
-        { label: 'Undo', icon: 'pi pi-refresh' },
-        { label: 'Redo', icon: 'pi pi-repeat' }
-      ]
-    }];
-  }
 
+  }
 }

@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
-
+import {APP_BASE_HREF} from '@angular/common';
 
 
 //////////////////primeng///////////////////////////
@@ -24,6 +24,9 @@ import { AccordionModule } from 'primeng/accordion';
 import { MenuModule } from 'primeng/menu';
 ///////////////////////////////////////////////////
 
+//////////////////////////////////////////////////
+import {MatCardModule} from '@angular/material/card';
+//////////////////////////////////////////////////
 
 import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
 import { GeneratelicenseComponent } from './generatelicense/generatelicense.component';
@@ -31,6 +34,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumericDirective } from './numeric.directive';
+import { LoginComponent } from './login/login.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +43,8 @@ import { NumericDirective } from './numeric.directive';
     FooterComponent,
     AdjustSpeedComponent,
     GeneratelicenseComponent,
-    NumericDirective
+    NumericDirective,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -60,10 +65,13 @@ import { NumericDirective } from './numeric.directive';
     HttpClientModule,
     ReactiveFormsModule,
     AccordionModule,
-    MenuModule
+    MenuModule,
+    MatCardModule
+    
+    
 
   ],
-  providers: [],
+  providers: [{provide: APP_BASE_HREF, useValue: '../../menu.html'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

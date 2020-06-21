@@ -16,23 +16,19 @@
         </div>
       </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/AdjustSpeed" routerLinkActive="active">
+    <li class="nav-item" *ngFor="let item of object | keyvalue">
+      <a class="nav-link" routerLink="{{item.value.menu}}" routerLinkActive="active">
         <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">Adjust Speed</span>
+        <span class="menu-title">{{item.value.name}}</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/Generatelicense" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">generate license</span>
-      </a>
-    </li>
-  </ul>
-  <h3 class="first">Basic</h3>
-<p-menu [model]="items"></p-menu>
 
-<h3>Popup</h3>
+
+  </ul>
+  <!-- <h3 class="first">Basic</h3>
+<p-menu [model]="items"></p-menu> -->
+
+<!-- <h3>Popup</h3>
 <p-menu #menu [popup]="true" [model]="items"></p-menu>
-<button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+<button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button> -->
 </nav>
