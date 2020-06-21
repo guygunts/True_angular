@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsermanagmentComponent } from './usermanagment.component';
+import { AdjustSpeedComponent } from './adjust-speed.component';
 
-describe('UsermanagmentComponent', () => {
-  let component: UsermanagmentComponent;
-  let fixture: ComponentFixture<UsermanagmentComponent>;
+describe('AdjustSpeedComponent', () => {
+  let component: AdjustSpeedComponent;
+  let fixture: ComponentFixture<AdjustSpeedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsermanagmentComponent ]
+      declarations: [ AdjustSpeedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsermanagmentComponent);
+    fixture = TestBed.createComponent(AdjustSpeedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

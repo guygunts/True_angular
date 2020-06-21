@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PackgetmanagmentComponent } from './packgetmanagment.component';
+import { GeneratelicenseComponent } from './generatelicense.component';
 
-describe('PackgetmanagmentComponent', () => {
-  let component: PackgetmanagmentComponent;
-  let fixture: ComponentFixture<PackgetmanagmentComponent>;
+describe('GeneratelicenseComponent', () => {
+  let component: GeneratelicenseComponent;
+  let fixture: ComponentFixture<GeneratelicenseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PackgetmanagmentComponent ]
+      declarations: [ GeneratelicenseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PackgetmanagmentComponent);
+    fixture = TestBed.createComponent(GeneratelicenseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

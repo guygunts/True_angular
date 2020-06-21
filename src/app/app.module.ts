@@ -1,21 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { ListpackgetComponent } from './listpackget/listpackget.component';
-import { PackgetmanagmentComponent } from './packgetmanagment/packgetmanagment.component';
-import { UsermanagmentComponent } from './usermanagment/usermanagment.component';
-import { ReportComponent } from './report/report.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,17 +15,31 @@ import { MatDatepickerModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
+//////////////////primeng///////////////////////////
+import { AccordionModule } from 'primeng/accordion';
+import { MenuModule } from 'primeng/menu';
+///////////////////////////////////////////////////
+
+
+import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
+import { GeneratelicenseComponent } from './generatelicense/generatelicense.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { FooterComponent } from './footer/footer.component';
+import { NumericDirective } from './numeric.directive';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    DashboardComponent,
-    ListpackgetComponent,
-    PackgetmanagmentComponent,
-    UsermanagmentComponent,
-    ReportComponent
+    AdjustSpeedComponent,
+    GeneratelicenseComponent,
+    NumericDirective
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AccordionModule,
+    MenuModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

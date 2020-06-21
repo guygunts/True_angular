@@ -17,34 +17,22 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+      <a class="nav-link" routerLink="/AdjustSpeed" routerLinkActive="active">
         <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">dashboard</span>
+        <span class="menu-title">Adjust Speed</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/listpackget" routerLinkActive="active">
+      <a class="nav-link" routerLink="/Generatelicense" routerLinkActive="active">
         <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">List Packget</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/packgetmanagment" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-notification-clear-all"></i>
-        <span class="menu-title">Packget Managment</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/usermanagment" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-dna"></i>
-        <span class="menu-title">User Managment</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/report" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-trackpad"></i>
-        <span class="menu-title">Report</span>
+        <span class="menu-title">generate license</span>
       </a>
     </li>
   </ul>
+  <h3 class="first">Basic</h3>
+<p-menu [model]="items"></p-menu>
+
+<h3>Popup</h3>
+<p-menu #menu [popup]="true" [model]="items"></p-menu>
+<button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
 </nav>

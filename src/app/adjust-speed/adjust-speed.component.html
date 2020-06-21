@@ -1,0 +1,99 @@
+<div class="row">
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">single Form Adjust Speed</h4>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+                <select class="form-control border-primary" formControlName="type" (change)="changedata()">
+                  <option>CPID</option>
+                  <option>MSISDN</option>
+                </select>
+            </div>
+            <!-- <div class="form-group" *ngIf="con">
+                <input type="text" class="form-control" formControlName="CPID"  placeholder="Ex.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" maxlength="255">
+            </div>
+            <div class="form-group"  *ngIf="!con">
+                <input type="text" numeric class="form-control" formControlName="MSISDN"  placeholder="Ex. 66xxxxxxxxx " maxlength="11" >
+            </div>
+             -->
+          <div class="form-group">
+            <label >ExporationTime</label>
+        </div>
+        <!-- <div class="row">
+            <div class="col-3">
+            <select class="form-control border-primary">
+              <ng-template ngFor let-item [ngForOf]="counter(91)" let-i="index">
+                <option  value="{{i}}">{{i}}</option>
+              </ng-template>
+            </select>
+            </div>
+
+            <div>
+              <label >Day.</label>
+            </div>
+
+            <div class="col-3">
+                <select class="form-control border-primary">
+                  <ng-template ngFor let-item [ngForOf]="counter(24)" let-i="index">
+                    <option  value="{{i}}">{{i}}</option>
+                  </ng-template>
+                </select>
+                </div>
+
+                <div>          
+                    <label>Hr.</label>
+                </div>
+
+                <div class="col-3" >
+                  <select class="form-control border-primary">
+                    <ng-template ngFor let-item [ngForOf]="counter(60)" let-i="index">
+                      <option  value="{{i}}">{{i}}</option>
+                    </ng-template>
+                  </select>
+                  </div>
+                  
+                  <div >
+                      <label>Minute.</label>
+                  </div>
+        </div> -->
+          <div class="form-group">
+            <label >MaxMediaRateKbps</label>
+            <input numeric type="text" class="form-control" formControlName="maxMediaRateKbps" placeholder="Ex.300" onKeyPress="if(this.value.length==4) return false;">
+          </div>
+          <div class="form-group">
+            <label >CPIDState</label>
+            <div class="form-group">
+                <select class="form-control border-primary"formControlName="cpidState">
+                  <option>None</option>
+                  <option>CPID_INVALIDATED</option>
+                  <option>CPID_STATE_UNSPECIFIED</option>
+                </select>
+              </div>
+          </div>
+          <button type="submit" class="btn btn-success mr-2">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6 d-flex align-items-stretch">
+    <div class="row flex-grow">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Upload Adjust Speed</h4>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="file" class="upload" accept=".csv" (change)="changeListener($event.target.files)">
+              </div>
+            </div>
+            <div class="form-group">
+            <button type="button" class="btn btn-success btn-fw" (click)="uploadfile()">upload</button>
+            <button type="button" class="btn btn-primary btn-fw">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
