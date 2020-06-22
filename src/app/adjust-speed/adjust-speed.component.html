@@ -10,19 +10,19 @@
                   <option>MSISDN</option>
                 </select>
             </div>
-            <!-- <div class="form-group" *ngIf="con">
+            <div class="form-group" *ngIf="con">
                 <input type="text" class="form-control" formControlName="CPID"  placeholder="Ex.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" maxlength="255">
             </div>
             <div class="form-group"  *ngIf="!con">
                 <input type="text" numeric class="form-control" formControlName="MSISDN"  placeholder="Ex. 66xxxxxxxxx " maxlength="11" >
             </div>
-             -->
+            
           <div class="form-group">
             <label >ExporationTime</label>
         </div>
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-3">
-            <select class="form-control border-primary">
+            <select class="form-control border-primary" formControlName="day" (change)="changedataday()" id="day">
               <ng-template ngFor let-item [ngForOf]="counter(91)" let-i="index">
                 <option  value="{{i}}">{{i}}</option>
               </ng-template>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="col-3">
-                <select class="form-control border-primary">
+                <select class="form-control border-primary" formControlName="hr" id="hr">
                   <ng-template ngFor let-item [ngForOf]="counter(24)" let-i="index">
                     <option  value="{{i}}">{{i}}</option>
                   </ng-template>
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="col-3" >
-                  <select class="form-control border-primary">
+                  <select class="form-control border-primary" formControlName="min" id="min">
                     <ng-template ngFor let-item [ngForOf]="counter(60)" let-i="index">
                       <option  value="{{i}}">{{i}}</option>
                     </ng-template>
@@ -56,7 +56,7 @@
                   <div >
                       <label>Minute.</label>
                   </div>
-        </div> -->
+        </div>
           <div class="form-group">
             <label >MaxMediaRateKbps</label>
             <input numeric type="text" class="form-control" formControlName="maxMediaRateKbps" placeholder="Ex.300" onKeyPress="if(this.value.length==4) return false;">

@@ -33,7 +33,10 @@ export class AdjustSpeedComponent implements OnInit {
       MSISDN: ['66'],
       expirationTime: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.minLength(4), Validators.max(1440)])],
       maxMediaRateKbps: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.max(1440)])],
-      cpidState: ['None']
+      cpidState: ['None'],
+      day: [0],
+      hr: [0],
+      min: [0]
     });
     console.log(this.loginForm.value.type)
   }
@@ -70,4 +73,16 @@ export class AdjustSpeedComponent implements OnInit {
       }
     }
   }
+
+  changedataday(): void {
+    if (this.loginForm.value.day == 90) {
+      (<HTMLInputElement>document.getElementById("hr")).disabled = true;
+      (<HTMLInputElement>document.getElementById("min")).disabled = true;
+    } else {
+      (<HTMLInputElement>document.getElementById("hr")).disabled = false;
+      (<HTMLInputElement>document.getElementById("min")).disabled = false;
+    }
+
+  }
+
 }

@@ -8,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
 
 export class SidebarComponent implements OnInit {
   constructor() { }
+  user = ''
   items;
   menu;
-  object: {[key: number]: object} = {2: {"menu":"/AdjustSpeed","name":"Adjust Speed"}, 1: {"menu":"/Generatelicense","name":"generate license"}};
+  object: { [key: number]: object } = { 2: { "menu": "/AdjustSpeed", "name": "Adjust Speed" }, 1: { "menu": "/Generatelicense", "name": "generate license" } };
   heroes = ['Windstorm', 'Bombasto', 'Magneta', 'Tornado'];
   ngOnInit() {
-
+    this.user = sessionStorage.getItem('user')
   }
 }

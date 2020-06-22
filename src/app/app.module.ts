@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 
 //////////////////primeng///////////////////////////
@@ -25,7 +25,7 @@ import { MenuModule } from 'primeng/menu';
 ///////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 //////////////////////////////////////////////////
 
 import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
@@ -34,7 +34,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumericDirective } from './numeric.directive';
-import { LoginComponent } from './login/login.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +44,7 @@ import { LoginComponent } from './login/login.component'
     AdjustSpeedComponent,
     GeneratelicenseComponent,
     NumericDirective,
-    LoginComponent
+
   ],
   imports: [
     BrowserModule,
@@ -67,11 +67,11 @@ import { LoginComponent } from './login/login.component'
     AccordionModule,
     MenuModule,
     MatCardModule
-    
-    
+
+
 
   ],
-  providers: [{provide: APP_BASE_HREF, useValue: '../../menu.html'}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

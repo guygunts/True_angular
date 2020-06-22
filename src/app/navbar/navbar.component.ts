@@ -9,6 +9,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NavbarComponent implements OnInit {
   public sidebarOpened = false;
+  user = ''
   toggleOffcanvas() {
     this.sidebarOpened = !this.sidebarOpened;
     if (this.sidebarOpened) {
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnInit {
     config.placement = 'bottom-right';
   }
   ngOnInit() {
+    this.user = sessionStorage.getItem('user')
   }
 
 }
