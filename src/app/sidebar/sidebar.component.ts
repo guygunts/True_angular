@@ -19,14 +19,14 @@ export class SidebarComponent implements OnInit {
     await axios.get(`${environment.URL_API}/menu?user=${this.user}`)
       .then(res => {
         if (res.data.code == 200) {
-          for (let i = 1; i < res.data.menu.length; i++) {
-            if (i == 1) {
+          for (let i = 0; i < res.data.menu.length; i++) {
+            if (i == 0) {
               this.object = {
-                i: res.data.menu[i]
+                [i]: res.data.menu[i]
               }
               continue
             }
-            this.object = { ...this.object, i: res.data.menu[i] }
+            this.object = { ...this.object, [i]: res.data.menu[i] }
           }
           console.log(this.object)
         }

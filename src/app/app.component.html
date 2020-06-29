@@ -1,29 +1,30 @@
- <div class="container-scroller" *ngIf="user !==''">
-  <app-navbar></app-navbar>
-  <div class="container-fluid page-body-wrapper">
-    <app-sidebar></app-sidebar>
-    <div class="main-panel">
-      <div class="content-wrapper">
-        <router-outlet></router-outlet>
-      </div>
-       <!-- <app-footer></app-footer>  -->
-    </div>
-  </div>
-</div> 
+<div class="container-scroller" *ngIf="user !==''">
+	<app-navbar></app-navbar>
+	<div class="container-fluid page-body-wrapper">
+		<app-sidebar></app-sidebar>
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<router-outlet></router-outlet>
+			</div>
+			<!-- <app-footer></app-footer>  -->
+		</div>
+	</div>
+</div>
 <div class="container" *ngIf="user ==''">
 	<section id="content">
 		<form [formGroup]="profileForm" (ngSubmit)="summit()">
 			<h1>{{title}}</h1>
 			<div>
-				<input type="text" placeholder="Username"  formControlName="username" id="username" />
+				<input type="text" class="form-control" placeholder="Username" formControlName="username" id="username" />
 			</div>
 			<div>
-				<input type="password" placeholder="Password" formControlName="password" id="password" />
+				<input type="password" class="form-control" placeholder="Password" formControlName="password" id="password" />
 			</div>
+			
 			<div class="setcenter">
-				<input type="submit"  />
+				<input type="submit" />
 			</div>
 		</form><!-- form -->
-		
-  </section><!-- content -->
+
+	</section><!-- content -->
 </div>

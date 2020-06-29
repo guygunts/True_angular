@@ -38,7 +38,6 @@ export class AdjustSpeedComponent implements OnInit {
       hr: [0],
       min: [0]
     });
-    console.log(this.loginForm.value.type)
   }
 
   counter(i: number) {

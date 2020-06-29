@@ -3,21 +3,20 @@
     <li class="nav-item nav-profile">
       <div class="nav-link">
         <div class="user-wrapper">
-          <div class="profile-image">
+          <!-- <div class="profile-image">
             <img src="assets/images/faces/face1.jpg" alt="profile image">
-          </div>
+          </div> -->
           <div class="text-wrapper">
-            <p class="profile-name">{{user}}</p>
-            <div>
-              <small class="designation text-muted">Manager</small>
+            <!-- <p class="profile-name"></p> -->
+            <!-- <div>
+              <p class="profile-name">{{user}}</p>
               <span class="status-indicator online"></span>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
     </li>
     <li class="nav-item" *ngFor="let item of object | keyvalue">
-      {{item}}
       <a class="nav-link" routerLink="/{{item.value.menu_url}}" routerLinkActive="active">
         <i class="menu-icon mdi {{item.value.menu_icon}}"></i>
         <span class="menu-title">{{item.value.menu_name}}</span>

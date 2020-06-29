@@ -1,6 +1,6 @@
-import { Component, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Router } from "@angular/router";
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2'
 import axios from "axios";
@@ -10,15 +10,24 @@ import { environment } from './../environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'True';
+export class AppComponent implements OnInit{
+  title = environment.title;
   user = '';
   dataport = []
-  profileForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
-  constructor(private router: Router, private http: HttpClient) { }
+  profileForm: FormGroup;
+ 
+
+  constructor(private router: Router, private http: HttpClient,private formBuilder: FormBuilder) { }
+
+  ngOnInit(){
+    this.user = sessionStorage.getItem('user')
+    this.profileForm = this.formBuilder.group({
+      username:  [null, Validators.compose([])],
+      password: [null, Validators.compose([Validators.required])],
+    });
+
+  }
+
   async summit() {
     // this.router.navigate(['/menu'])
 
