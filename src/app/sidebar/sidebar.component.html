@@ -17,9 +17,10 @@
       </div>
     </li>
     <li class="nav-item" *ngFor="let item of object | keyvalue">
-      <a class="nav-link" routerLink="{{item.value.menu}}" routerLinkActive="active">
-        <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">{{item.value.name}}</span>
+      {{item}}
+      <a class="nav-link" routerLink="/{{item.value.menu_url}}" routerLinkActive="active">
+        <i class="menu-icon mdi {{item.value.menu_icon}}"></i>
+        <span class="menu-title">{{item.value.menu_name}}</span>
       </a>
     </li>
 

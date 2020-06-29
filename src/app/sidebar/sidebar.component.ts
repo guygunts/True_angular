@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import axios from "axios";
+import { environment } from './../../environments/environment';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -9,11 +10,29 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   constructor() { }
   user = ''
-  items;
-  menu;
-  object: { [key: number]: object } = { 2: { "menu": "/AdjustSpeed", "name": "Adjust Speed" }, 1: { "menu": "/Generatelicense", "name": "generate license" } };
-  heroes = ['Windstorm', 'Bombasto', 'Magneta', 'Tornado'];
-  ngOnInit() {
+  items
+  menu
+
+  object: object
+  async ngOnInit() {
     this.user = sessionStorage.getItem('user')
+    await axios.get(`${environment.URL_API}/menu?user=${this.user}`)
+      .then(res => {
+        if (res.data.code == 200) {
+          for (let i = 1; i < res.data.menu.length; i++) {
+            if (i == 1) {
+              this.object = {
+                i: res.data.menu[i]
+              }
+              continue
+            }
+            this.object = { ...this.object, i: res.data.menu[i] }
+          }
+          console.log(this.object)
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 }

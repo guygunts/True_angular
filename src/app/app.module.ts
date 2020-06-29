@@ -16,8 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
-import { APP_BASE_HREF } from '@angular/common';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 //////////////////primeng///////////////////////////
 import { AccordionModule } from 'primeng/accordion';
@@ -34,6 +33,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumericDirective } from './numeric.directive';
+import { BlacklistComponent } from './blacklist/blacklist.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { NumericDirective } from './numeric.directive';
     AdjustSpeedComponent,
     GeneratelicenseComponent,
     NumericDirective,
+    BlacklistComponent,
 
   ],
   imports: [
@@ -66,7 +67,8 @@ import { NumericDirective } from './numeric.directive';
     ReactiveFormsModule,
     AccordionModule,
     MenuModule,
-    MatCardModule
+    MatCardModule,
+    MatSlideToggleModule
 
 
 
