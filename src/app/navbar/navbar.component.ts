@@ -25,5 +25,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.user = sessionStorage.getItem('user')
   }
-
+  Signout() {
+    sessionStorage.clear();
+    window.location.reload();
+  }
 }

@@ -17,10 +17,21 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { AppService } from './app.service';
 //////////////////primeng///////////////////////////
 import { AccordionModule } from 'primeng/accordion';
 import { MenuModule } from 'primeng/menu';
+import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
+import { SliderModule } from 'primeng/slider';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { DropdownModule } from 'primeng/dropdown';
 ///////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
@@ -34,6 +45,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumericDirective } from './numeric.directive';
 import { BlacklistComponent } from './blacklist/blacklist.component';
+import { LicenseComponent } from './license/license.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +57,7 @@ import { BlacklistComponent } from './blacklist/blacklist.component';
     GeneratelicenseComponent,
     NumericDirective,
     BlacklistComponent,
+    LicenseComponent,
 
   ],
   imports: [
@@ -68,12 +81,23 @@ import { BlacklistComponent } from './blacklist/blacklist.component';
     AccordionModule,
     MenuModule,
     MatCardModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    TableModule,
+    MultiSelectModule,
+    CalendarModule,
+    DropdownModule,
+    ProgressBarModule,
+    ContextMenuModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    SliderModule,
+    DialogModule
 
 
 
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,10 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from './../service/authentication.service';
-import { first } from 'rxjs/operators';
+import axios from "axios";
+import { environment } from './../../environments/environment';
+import Swal from 'sweetalert2'
+import { AppService } from '../app.service';
 @Component({
   selector: 'app-adjust-speed',
   inputs: ['name'],
@@ -15,24 +18,26 @@ export class AdjustSpeedComponent implements OnInit {
   submitted = false;
   con = true
   datafromfile = []
-
+  MyCSV = []
+  statusdownload: number
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private appService: AppService
   ) {
 
   }
 
 
   ngOnInit() {
+    this.statusdownload = 0
     this.loginForm = this.formBuilder.group({
       type: ['CPID'],
       CPID: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(250)])],
       MSISDN: ['66'],
-      expirationTime: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.minLength(4), Validators.max(1440)])],
-      maxMediaRateKbps: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.max(1440)])],
+      maxMediaRateKbps: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.max(9999999)])],
       cpidState: ['None'],
       day: [0],
       hr: [0],
@@ -43,7 +48,7 @@ export class AdjustSpeedComponent implements OnInit {
   counter(i: number) {
     return new Array(i).map(x => i + 1);
   }
-  get f() { return this.loginForm.controls; }
+
 
   changedata(): void {
     if (this.loginForm.value.type == 'CPID') {
@@ -53,14 +58,84 @@ export class AdjustSpeedComponent implements OnInit {
     }
 
   }
-  onSubmit() {
 
+  async onSubmit() {
+
+    let dataday: number
+    let CPID: string
+    if (this.loginForm.value.day) {
+      dataday = this.loginForm.value.day * 1440
+      if (dataday == 129600) {
+        this.loginForm.value.hr = 0
+        this.loginForm.value.min = 0
+      }
+    }
+    if (this.loginForm.value.hr) {
+      dataday += this.loginForm.value.hr * 60
+    }
+    if (this.loginForm.value.min) {
+      dataday += this.loginForm.value.min
+    }
+    if (this.loginForm.value.type == 'MSISDN') {
+      CPID = this.loginForm.value.MSISDN
+    } else if (this.loginForm.value.type == 'CPID') {
+      CPID = this.loginForm.value.CPID
+    }
+    let params = {
+      "maxMediaRateKbps": this.loginForm.value.maxMediaRateKbps,
+      "expirationTime": dataday,
+      "cpidState": this.loginForm.value.cpidState,
+      "CPID": CPID,
+      "type": this.loginForm.value.type,
+      "user": sessionStorage.getItem('user')
+    }
+    await axios.post(`http://192.168.38.201:4200/adjustspeed`, params)
+      .then(res => {
+        if (res.data.code == '200') {
+          Swal.fire({
+            icon: 'success',
+            text: "Success",
+          })
+          return false
+        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: res.data.error
+        })
+        console.log(res)
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err
+        })
+      })
   }
-  uploadfile() {
-    console.log(JSON.stringify(this.datafromfile))
+
+  async uploadfile() {
+    console.log(this.datafromfile)
+    await axios.post(`http://192.168.38.201:4200/uploadadjustspeed`, this.datafromfile)
+      .then(res => {
+        res.data.result.forEach(element => {
+          this.MyCSV.push(element)
+        });
+        Swal.fire({
+          icon: 'success',
+          text: "Success",
+        })
+        this.statusdownload = 1
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err
+        })
+      })
   }
   changeListener(files: FileList) {
-    console.log(files);
     if (files && files.length > 0) {
       let file: File = files.item(0);
       let reader: FileReader = new FileReader();
@@ -68,7 +143,19 @@ export class AdjustSpeedComponent implements OnInit {
       this.datafromfile = []
       reader.onload = (e) => {
         let csv: string = reader.result as string;
-        this.datafromfile.push(csv)
+        let datasplit = csv.split(/\r\n|\n/);
+        for (let i = 0; i < datasplit.length; i++) {
+          var datasplits = datasplit[i].split(',');
+          let data =
+          {
+            "type": datasplits[0],
+            "CPID": datasplits[1],
+            "expirationTime": datasplits[2],
+            "maxMediaRateKbps": datasplits[3],
+            "cpidState": datasplits[4]
+          }
+          this.datafromfile.push(data)
+        }
       }
     }
   }
@@ -82,6 +169,10 @@ export class AdjustSpeedComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("min")).disabled = false;
     }
 
+  }
+
+  download() {
+    this.appService.downloadFile(this.MyCSV, 'Result');
   }
 
 }

@@ -91,7 +91,7 @@
             </div>
             <div class="form-group">
             <button type="button" class="btn btn-success btn-fw" (click)="uploadfile()">upload</button>
-            <button type="button" class="btn btn-primary btn-fw">Download</button>
+            <button (click)="download()"  class="btn btn-primary btn-fw" *ngIf="statusdownload==1"> Download </button>
           </div>
         </div>
       </div>

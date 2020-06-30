@@ -1,4 +1,4 @@
-<div class="container-scroller" *ngIf="user !==''">
+<div class="container-scroller" *ngIf=" user !==null">
 	<app-navbar></app-navbar>
 	<div class="container-fluid page-body-wrapper">
 		<app-sidebar></app-sidebar>
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </div>
-<div class="container" *ngIf="user ==''">
+<div class="container" *ngIf="user ==null">
 	<section id="content">
 		<form [formGroup]="profileForm" (ngSubmit)="summit()">
 			<h1>{{title}}</h1>

@@ -9,7 +9,7 @@
             <div class="float-right">
               <p class="mb-0 text-right">Grant License</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+                <h3 class="font-weight-medium text-right mb-0">{{amounttps}} TPS</h3>
               </div>
             </div>
           </div>
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+    <div class="col-xl-8 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
       <div class="card card-statistics">
         <div class="card-body">
           <div class="clearfix">
@@ -27,7 +27,7 @@
             <div class="float-right">
               <p class="mb-0 text-right">License Key</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">3455</h3>
+                <h3 class="font-weight-medium text-right mb-0">{{generate}}</h3>
               </div>
             </div>
           </div>
@@ -41,18 +41,41 @@
         <div class="card-body">
           <div class="clearfix">
             <div class="float-left">
-              <!-- <i class="mdi mdi-lock-open text-warning icon-lg"></i> -->
-              <p class="mb-0 text-right">Disable PAS for All</p>
+              <i class="mdi  mdi-account-switch text-primary icon-lg"></i>
             </div>
             <div class="float-right">
+              <p class="mb-0 text-right">Disable PAS for All</p>
               <div class="fluid-container">
-                <mat-slide-toggle> </mat-slide-toggle>
+                <mat-slide-toggle
+                [checked]="checked"
+                (change)="Change($event)"> </mat-slide-toggle>
               </div>
             </div>
           </div>
-          
+         
         </div>
       </div>
     </div>
 
+
+    <div class="col-xl-5 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+      <div class="row flex-grow">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label class="col-md-3 control-label">new License: </label>
+                <div class="col-md-8">
+                  <input type="text" formControlName="token" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">confirm</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
   </div>
+    </div>
+  </div>
+ 

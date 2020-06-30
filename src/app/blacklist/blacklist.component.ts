@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blacklist.component.scss']
 })
 export class BlacklistComponent implements OnInit {
+  cars: any[];
+  cols: any[];
   datafromfile = []
+  selectedCars3: any[];
+  first = 0;
+  rows = 10;
   constructor() { }
 
   ngOnInit() {
