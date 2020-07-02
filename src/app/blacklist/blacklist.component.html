@@ -26,19 +26,19 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Upload file</h4>
-            <div class="form-group col-sm-9">
+            <div class="form-group col-sm-12">
                 <input type="file" class="upload" accept=".csv" (change)="changeListener($event.target.files)">
-                <p-calendar  [touchUI]="true" [readonlyInput]="true" showTime="true" hourFormat="24" showButtonBar="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"></p-calendar>
+                <p-calendar [(ngModel)]="value"  [touchUI]="true" [readonlyInput]="true" showTime="true" hourFormat="24"  showButtonBar="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true"></p-calendar>Ex. Don't Less then Current Time 
             </div>
             <div class="form-group">
-              <button type="button" class="btn btn-primary btn-fw" (click)="uploadfile()">Browse</button>
+              <button type="button" class="btn btn-primary btn-fw" (click)="uploadfile()" [disabled]="value<=today || selectedFiles ==undefined ">Browse</button>
             </div>
         </div>
       </div>
     </div>
 </div>
   </div>
-  <p-table [columns]="col" [value]="data" [paginator]="true" [rows]="totalpage" [showCurrentPageReport]="true"  [(selection)]="selectedCars3" dataKey="msisdn"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+  <p-table [columns]="col"   [value]="data" [paginator]="true" [rows]="totalpage" [showCurrentPageReport]="true"  [(selection)]="selectedCars3" dataKey="msisdn"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th style="width: 3em">
@@ -65,5 +65,25 @@
       </div>
   </ng-template>  
 </p-table>
-<!-- <button type="button" class="btn btn-primary btn-fw">delete</button> -->
+<div class="card-body"></div>
+<p-table [columns]="colexecl" [value]="dataexecl" [paginator]="true" [rows]="totalpageexecl" [showCurrentPageReport]="true"    [totalRecords]="totalRecordsexecl">
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th *ngFor="let col of columns">
+              {{col.header}}
+          </th>
+          <th style="width:4em"></th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+          <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"></button>
+        </td>
+      </tr>
+  </ng-template>  
+</p-table>
 </div>
