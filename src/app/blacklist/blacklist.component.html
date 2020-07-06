@@ -81,7 +81,7 @@
               {{rowData[col.field]}}
           </td>
           <td>
-            <button pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"></button>
+            <button pButton icon="pi pi-download" (click)="selectCarWithButton(rowData)" [disabled]="rowData.result_file == null"></button>
         </td>
       </tr>
   </ng-template>  

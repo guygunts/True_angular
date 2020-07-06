@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { environment } from './../../environments/environment';
 import Swal from 'sweetalert2'
-import { HttpClient, HttpRequest, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-blacklist',
   templateUrl: './blacklist.component.html',
@@ -32,11 +32,12 @@ export class BlacklistComponent implements OnInit {
   totalpageexecl = 5
   //////////execl table///////////
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
     axios.post(`${environment.URL_API}/Blacklistlist`)
       .then(res => {
+        console.log(res.data)
         this.colexecl = res.data.column
         this.dataexecl = res.data.data
       })
@@ -50,12 +51,9 @@ export class BlacklistComponent implements OnInit {
     let date: Date = new Date();
     let dates = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     let dateTime = dates + ' ' + '23:59:59';
-    let time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.value = dateTime
   }
-  selectCarWithButton(data) {
-    console.log(data)
-  }
+
 
   async add() {
     let param = {
@@ -150,23 +148,26 @@ export class BlacklistComponent implements OnInit {
           text: err.message
         })
       })
-    // axios({
-    //   method: 'post',
-    //   url: `${environment.URL_API}/Blacklistfile`,
-    //   data: formData,
-    //   headers: { 'Content-Type': 'multipart/form-data' }
-    // })
-    //   .then(function (response) {
-    //     //handle success
-    //     console.log(response);
-    //   })
-    //   .catch(function (response) {
-    //     //handle error
-    //     console.log(response);
-    //   });
-
   }
   changeListener(event) {
     this.selectedFiles = event;
+  }
+
+  async selectCarWithButton(data) {
+    let formData = {
+      'file': data.result_file
+    }
+    await axios.post(`${environment.URL_API}/Blacklistdownload`, formData)
+      .then(res => {
+        let blob = new Blob(['\ufeff', res.data], { type: "text/csv;charset=utf-8" });
+        saveAs(blob, "Result.csv");
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.message
+        })
+      })
   }
 }

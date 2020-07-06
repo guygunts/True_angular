@@ -89,7 +89,8 @@ export class AdjustSpeedComponent implements OnInit {
       "type": this.loginForm.value.type,
       "user": sessionStorage.getItem('user')
     }
-    await axios.post(`http://192.168.38.201:4200/adjustspeed`, params)
+    //http://192.168.38.201:4200
+    await axios.post(`${environment.URL_API}/adjustspeed`, params)
       .then(res => {
         if (res.data.code == '200') {
           Swal.fire({
