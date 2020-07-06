@@ -32,6 +32,9 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import { MessageModule, KeyFilterModule } from 'primeng/primeng';
+import {ChartModule} from 'primeng/chart';
 ///////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
@@ -92,8 +95,11 @@ import { LicenseComponent } from './license/license.component';
     ToastModule,
     InputTextModule,
     SliderModule,
-    DialogModule
-
+    DialogModule,
+    SplitButtonModule,
+    MessageModule,
+    KeyFilterModule,
+    ChartModule
 
 
   ],

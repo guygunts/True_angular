@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { environment } from './../../environments/environment';
 import Swal from 'sweetalert2'
+import { FormBuilder, FormGroup, Validators ,FormControl} from '@angular/forms';
 import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-blacklist',
@@ -9,6 +10,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./blacklist.component.scss']
 })
 export class BlacklistComponent implements OnInit {
+  loginForm: FormGroup;
   data: [];
   col: [];
   value
@@ -18,6 +20,7 @@ export class BlacklistComponent implements OnInit {
   selectedFiles: FileList;
   currentFile: File;
   selectedCars3: [];
+  items: [{ label: string; icon: string; command: () => void; },{ label: string; icon: string; command: () => void; }];
   ////////msisdn table//////////////
   totalRecords = 10;
   first = 1
@@ -32,7 +35,7 @@ export class BlacklistComponent implements OnInit {
   totalpageexecl = 5
   //////////execl table///////////
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,) { }
 
   ngOnInit() {
     axios.post(`${environment.URL_API}/Blacklistlist`)
@@ -52,14 +55,37 @@ export class BlacklistComponent implements OnInit {
     let dates = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     let dateTime = dates + ' ' + '23:59:59';
     this.value = dateTime
+
+    this.items = [
+      {label: 'Delete', icon: 'pi pi-times', command: () => {
+        this.remove();
+    }},
+      {label: 'Search', icon: 'pi pi-search', command: () => {
+        this.search();
+      }}
+  ];
+
+  this.loginForm = this.formBuilder.group({
+    MSISDN: new FormControl('', Validators.compose([Validators.required, Validators.minLength(11)])),
+  });
   }
 
 
   async add() {
     let param = {
-      "msisdn": (<HTMLInputElement>document.getElementById("MSISDN")).value,
+      "msisdn": this.loginForm.value.MSISDN,
       "user": sessionStorage.getItem('user')
     }
+    let spit=this.loginForm.value.MSISDN.split('')
+    if(spit[0]  !== "6" || spit[1]  !== "6"){
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'format is wrong'
+            })
+            return false
+    }
+
     await axios.post(`${environment.URL_API}/blacklistadd`, param)
       .then(res => {
         Swal.fire({
@@ -78,7 +104,16 @@ export class BlacklistComponent implements OnInit {
 
   async remove() {
     let param = {
-      "msisdn": (<HTMLInputElement>document.getElementById("MSISDN")).value
+      "msisdn": this.loginForm.value.MSISDN
+    }
+    let spit=this.loginForm.value.MSISDN.split('')
+    if(spit[0]  !== "6" || spit[1]  !== "6"){
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'format is wrong'
+            })
+            return false
     }
     await axios.post(`${environment.URL_API}/blacklistdelete`, param)
       .then(res => {
@@ -105,9 +140,58 @@ export class BlacklistComponent implements OnInit {
 
   }
 
+  async removefortable(data) {
+    let param = {
+      "msisdn": data.MSISDN
+    }
+    let spit=this.loginForm.value.MSISDN.split('')
+    if(spit[0]  !== "6" || spit[1]  !== "6"){
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'format is wrong'
+            })
+            return false
+    }
+    await axios.post(`${environment.URL_API}/blacklistdelete`, param)
+      .then(res => {
+        axios.post(`${environment.URL_API}/blacklist`, param)
+          .then(ress => {
+            this.col = ress.data.column
+            this.data = ress.data.data
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.message
+            })
+          })
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.message
+        })
+      })
+
+  }
+
+
+
   async search() {
     let param = {
-      "msisdn": (<HTMLInputElement>document.getElementById("MSISDN")).value
+      "msisdn": this.loginForm.value.MSISDN
+    }
+    let spit=this.loginForm.value.MSISDN.split('')
+    if(spit[0]  !== "6" || spit[1]  !== "6"){
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'format is wrong'
+            })
+            return false
     }
     await axios.post(`${environment.URL_API}/blacklist`, param)
       .then(res => {
