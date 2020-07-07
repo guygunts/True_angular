@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { environment } from './../../environments/environment';
 import Swal from 'sweetalert2'
-import { FormBuilder, FormGroup, Validators ,FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-blacklist',
@@ -13,6 +13,7 @@ export class BlacklistComponent implements OnInit {
   loginForm: FormGroup;
   data: [];
   col: [];
+  dateTime
   value
   today = new Date();
   dataexecl: [];
@@ -20,7 +21,7 @@ export class BlacklistComponent implements OnInit {
   selectedFiles: FileList;
   currentFile: File;
   selectedCars3: [];
-  items: [{ label: string; icon: string; command: () => void; },{ label: string; icon: string; command: () => void; }];
+  items: [{ label: string; icon: string; command: () => void; }, { label: string; icon: string; command: () => void; }];
   ////////msisdn table//////////////
   totalRecords = 10;
   first = 1
@@ -52,22 +53,26 @@ export class BlacklistComponent implements OnInit {
         })
       })
     let date: Date = new Date();
-    let dates = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-    let dateTime = dates + ' ' + '23:59:59';
-    this.value = dateTime
+    let dates = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    this.dateTime = dates + ' ' + '23:59:59';
+
 
     this.items = [
-      {label: 'Delete', icon: 'pi pi-times', command: () => {
-        this.remove();
-    }},
-      {label: 'Search', icon: 'pi pi-search', command: () => {
-        this.search();
-      }}
-  ];
+      {
+        label: 'Delete', icon: 'pi pi-times', command: () => {
+          this.remove();
+        }
+      },
+      {
+        label: 'Search', icon: 'pi pi-search', command: () => {
+          this.search();
+        }
+      }
+    ];
 
-  this.loginForm = this.formBuilder.group({
-    MSISDN: new FormControl('', Validators.compose([Validators.required, Validators.minLength(11)])),
-  });
+    this.loginForm = this.formBuilder.group({
+      MSISDN: new FormControl('', Validators.compose([Validators.required, Validators.minLength(11)])),
+    });
   }
 
 
@@ -76,14 +81,14 @@ export class BlacklistComponent implements OnInit {
       "msisdn": this.loginForm.value.MSISDN,
       "user": sessionStorage.getItem('user')
     }
-    let spit=this.loginForm.value.MSISDN.split('')
-    if(spit[0]  !== "6" || spit[1]  !== "6"){
+    let spit = this.loginForm.value.MSISDN.split('')
+    if (spit[0] !== "6" || spit[1] !== "6") {
       Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'format is wrong'
-            })
-            return false
+        icon: 'error',
+        title: 'Oops...',
+        text: 'format is wrong'
+      })
+      return false
     }
 
     await axios.post(`${environment.URL_API}/blacklistadd`, param)
@@ -106,14 +111,14 @@ export class BlacklistComponent implements OnInit {
     let param = {
       "msisdn": this.loginForm.value.MSISDN
     }
-    let spit=this.loginForm.value.MSISDN.split('')
-    if(spit[0]  !== "6" || spit[1]  !== "6"){
+    let spit = this.loginForm.value.MSISDN.split('')
+    if (spit[0] !== "6" || spit[1] !== "6") {
       Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'format is wrong'
-            })
-            return false
+        icon: 'error',
+        title: 'Oops...',
+        text: 'format is wrong'
+      })
+      return false
     }
     await axios.post(`${environment.URL_API}/blacklistdelete`, param)
       .then(res => {
@@ -144,14 +149,14 @@ export class BlacklistComponent implements OnInit {
     let param = {
       "msisdn": data.MSISDN
     }
-    let spit=this.loginForm.value.MSISDN.split('')
-    if(spit[0]  !== "6" || spit[1]  !== "6"){
+    let spit = this.loginForm.value.MSISDN.split('')
+    if (spit[0] !== "6" || spit[1] !== "6") {
       Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'format is wrong'
-            })
-            return false
+        icon: 'error',
+        title: 'Oops...',
+        text: 'format is wrong'
+      })
+      return false
     }
     await axios.post(`${environment.URL_API}/blacklistdelete`, param)
       .then(res => {
@@ -184,14 +189,14 @@ export class BlacklistComponent implements OnInit {
     let param = {
       "msisdn": this.loginForm.value.MSISDN
     }
-    let spit=this.loginForm.value.MSISDN.split('')
-    if(spit[0]  !== "6" || spit[1]  !== "6"){
+    let spit = this.loginForm.value.MSISDN.split('')
+    if (spit[0] !== "6" || spit[1] !== "6") {
       Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'format is wrong'
-            })
-            return false
+        icon: 'error',
+        title: 'Oops...',
+        text: 'format is wrong'
+      })
+      return false
     }
     await axios.post(`${environment.URL_API}/blacklist`, param)
       .then(res => {
@@ -213,10 +218,20 @@ export class BlacklistComponent implements OnInit {
 
 
   async uploadfile() {
+    let today = new Date(this.value);
+    var date = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    let formattaime
+    if (this.value == undefined) {
+      formattaime = this.dateTime
+    } else {
+      formattaime = dateTime
+    }
     let formData = new FormData();
     this.currentFile = this.selectedFiles.item(0)
     formData.append('file', this.currentFile);
-    formData.append('time', this.value);
+    formData.append('time', formattaime);
     formData.append('user', sessionStorage.getItem('user'));
     await axios.post(`${environment.URL_API}/Blacklistfile`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then(res => {
@@ -232,6 +247,7 @@ export class BlacklistComponent implements OnInit {
           text: err.message
         })
       })
+
   }
   changeListener(event) {
     this.selectedFiles = event;

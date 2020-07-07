@@ -1,50 +1,74 @@
 <div class="row">
-<div class="col-md-6 d-flex align-items-stretch">
-    <div class="row flex-grow">
-      <div class="col-12 grid-margin">
-        <div class="card">
-          <div class="card-body">
-            <form [formGroup]="loginForm" >
-            <div class="form-group col-sm-9">
-                <h4 class="card-title">MSISDN</h4>
-                <input numeric id="MSISDN" type="text" class="form-control"  aria-describedby="inputGroup-sizing-sm" formControlName="MSISDN" maxlength="11" placeholder="MSISDN eg: 66xxxxxxxxx">
-            </div>
-            <div class="form-group col-sm-9">
-            <!-- <button type="button" class="btn btn-success btn-fw" (click)="add()">Add</button>
-            <button type="button" class="btn btn-secondary btn-fw" (click)="remove()">Remove</button>
-            <button type="button" class="btn btn-primary btn-fw" (click)="search()">Search</button> -->
-            <p-splitButton label="Save" icon="pi pi-file" (onClick)="add()" [model]="items" [disabled]="loginForm.value.MSISDN == null || loginForm.value.MSISDN == '' || !loginForm.valid"></p-splitButton>
-          </div>
-            </form>
-        </div>
-      </div>
-    </div>
-</div>
-  </div>
   <div class="col-md-6 d-flex align-items-stretch">
-    <div class="row flex-grow">
-      <div class="col-12 grid-margin">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Upload file</h4>
-            <div class="form-group col-sm-12">
-                <input type="file" class="upload" accept=".csv" (change)="changeListener($event.target.files)">
-                <p-calendar [(ngModel)]="value"  [touchUI]="true" [readonlyInput]="true" showTime="true" hourFormat="24"  showButtonBar="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true"></p-calendar>Ex. Don't Less then Current Time 
+      <div class="row flex-grow">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <form [formGroup]="loginForm" >
+              <div class="form-group col-sm-9">
+                  <h4 class="card-title">MSISDN</h4>
+                  <input numeric id="MSISDN" type="text" class="form-control"  aria-describedby="inputGroup-sizing-sm" formControlName="MSISDN" maxlength="11" placeholder="MSISDN eg: 66xxxxxxxxx">
+              </div>
+              <div class="form-group col-sm-9">
+               <button type="button" class="btn btn-success btn-fw" (click)="add()" [disabled]="loginForm.value.MSISDN == null || loginForm.value.MSISDN == '' || !loginForm.valid">Add</button>
+              <button type="button" class="btn btn-secondary btn-fw" (click)="remove()" [disabled]="loginForm.value.MSISDN == null || loginForm.value.MSISDN == '' || !loginForm.valid">Remove</button>
+              <button type="button" class="btn btn-primary btn-fw" (click)="search()" [disabled]="loginForm.value.MSISDN == null || loginForm.value.MSISDN == '' || !loginForm.valid">Search</button> 
+              <!--<p-splitButton label="Save" icon="pi pi-file" (onClick)="add()" [model]="items" [disabled]="loginForm.value.MSISDN == null || loginForm.value.MSISDN == '' || !loginForm.valid"></p-splitButton>-->
             </div>
-            <div class="form-group col-sm-12">
-              <button type="button" class="btn btn-primary btn-fw" (click)="uploadfile()" [disabled]="value<=today || selectedFiles ==undefined ">Browse</button>
-            </div>
+              </form>
+          </div>
         </div>
       </div>
-    </div>
-</div>
   </div>
-  <p-table [columns]="col"   [value]="data" [paginator]="true" [rows]="totalpage" [showCurrentPageReport]="true"  [(selection)]="selectedCars3" dataKey="msisdn"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    </div>
+    <div class="col-md-6 d-flex align-items-stretch">
+      <div class="row flex-grow">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Upload file</h4>
+              <div class="form-group col-sm-12">
+                  <input type="file" class="upload" accept=".csv" (change)="changeListener($event.target.files)">
+                  <p-calendar [(ngModel)]="value"  [touchUI]="true" [readonlyInput]="true" [minDate]="today" [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>default:{{dateTime}}
+              </div>
+              <div class="form-group col-sm-12">
+                <button type="button" class="btn btn-primary btn-fw" (click)="uploadfile()" [disabled]="selectedFiles ==undefined ">Upload</button>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+    </div>
+    <p-table [columns]="col"   [value]="data" [paginator]="true" [rows]="totalpage" [showCurrentPageReport]="true"  [(selection)]="selectedCars3" dataKey="msisdn"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th style="width: 3em">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th *ngFor="let col of columns">
+                  {{col.header}}
+              </th>
+              <th style="width:4em"></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+              <td>
+                  <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+              </td>
+              <td *ngFor="let col of columns">
+                  {{rowData[col.field]}}
+              </td>
+              <td>
+                <button  pButton icon="pi pi-times" (click)="removefortable(rowData)"></button>
+            </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  <div class="card-body"></div>
+  <p-table [columns]="colexecl" [value]="dataexecl" [paginator]="true" [rows]="totalpageexecl" [showCurrentPageReport]="true"    [totalRecords]="totalRecordsexecl">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th style="width: 3em">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
             <th *ngFor="let col of columns">
                 {{col.header}}
             </th>
@@ -53,37 +77,13 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
-            <td>
-                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-            </td>
             <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
             </td>
             <td>
-              <button  pButton icon="pi pi-times" (click)="removefortable(rowData)"></button>
+              <button pButton icon="pi pi-download" (click)="selectCarWithButton(rowData)" [disabled]="rowData.result_file == null"></button>
           </td>
         </tr>
-    </ng-template>
-</p-table>
-<div class="card-body"></div>
-<p-table [columns]="colexecl" [value]="dataexecl" [paginator]="true" [rows]="totalpageexecl" [showCurrentPageReport]="true"    [totalRecords]="totalRecordsexecl">
-  <ng-template pTemplate="header" let-columns>
-      <tr>
-          <th *ngFor="let col of columns">
-              {{col.header}}
-          </th>
-          <th style="width:4em"></th>
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-      <tr>
-          <td *ngFor="let col of columns">
-              {{rowData[col.field]}}
-          </td>
-          <td>
-            <button pButton icon="pi pi-download" (click)="selectCarWithButton(rowData)" [disabled]="rowData.result_file == null"></button>
-        </td>
-      </tr>
-  </ng-template>  
-</p-table>
-</div>
+    </ng-template>  
+  </p-table>
+  </div>
