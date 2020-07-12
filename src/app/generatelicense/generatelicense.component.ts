@@ -27,33 +27,57 @@ export class GeneratelicenseComponent implements OnInit {
     });
   }
   async Change(event) {
-    console.log(event.checked.toString())
-    let status
-    if (event.checked == true) {
-      status = 1
-    } else {
-      status = 0
-    }
-    let param = {
-      "status": status,
-      "user": sessionStorage.getItem('user')
-    }
-    await axios.post(`${environment.URL_API}/updatestastus`, param)
-      .then(res => {
 
-        Swal.fire({
-          icon: 'success',
-          text: res.data.mess,
-        })
-        return false
-      })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
-      })
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to change this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, change it!'
+    }).then((result) => {
+      if (result.value == undefined) {
+        if (event.checked == true) {
+
+          event.source._checked = false;
+        } else {
+          event.source._checked = true;
+        }
+      }
+      if (result.value) {
+        let status
+        if (event.checked == true) {
+          status = 1
+        } else {
+          status = 0
+        }
+        let param = {
+          "status": status,
+          "user": sessionStorage.getItem('user')
+        }
+        axios.post(`${environment.URL_API}/updatestastus`, param)
+          .then(res => {
+            Swal.fire(
+              'Change!',
+              'success'
+            )
+
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.message
+            })
+          })
+      }
+    })
+
+
+
+
+
   }
   async onSubmit() {
     let param = {

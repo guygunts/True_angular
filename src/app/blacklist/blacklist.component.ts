@@ -108,78 +108,89 @@ export class BlacklistComponent implements OnInit {
   }
 
   async remove() {
-    let param = {
-      "msisdn": this.loginForm.value.MSISDN
-    }
-    let spit = this.loginForm.value.MSISDN.split('')
-    if (spit[0] !== "6" || spit[1] !== "6") {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'format is wrong'
-      })
-      return false
-    }
-    await axios.post(`${environment.URL_API}/blacklistdelete`, param)
-      .then(res => {
-        axios.post(`${environment.URL_API}/blacklist`, param)
-          .then(ress => {
-            this.col = ress.data.column
-            this.data = ress.data.data
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+
+        let param = {
+          "msisdn": this.loginForm.value.MSISDN
+        }
+        let spit = this.loginForm.value.MSISDN.split('')
+        if (spit[0] !== "6" || spit[1] !== "6") {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'format is wrong'
           })
-          .catch(err => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: err.message
-            })
+          return false
+        }
+        axios.post(`${environment.URL_API}/blacklistdelete`, param)
+          .then(res => {
+            axios.post(`${environment.URL_API}/blacklist`, param)
+              .then(ress => {
+                this.col = ress.data.column
+                this.data = ress.data.data
+              })
+            Swal.fire(
+              'Deleted!',
+              'Your number has been deleted.',
+              'success'
+            )
           })
-      })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
-      })
+      }
+    })
+
 
   }
 
   async removefortable(data) {
-    let param = {
-      "msisdn": data.MSISDN
-    }
-    let spit = this.loginForm.value.MSISDN.split('')
-    if (spit[0] !== "6" || spit[1] !== "6") {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'format is wrong'
-      })
-      return false
-    }
-    await axios.post(`${environment.URL_API}/blacklistdelete`, param)
-      .then(res => {
-        axios.post(`${environment.URL_API}/blacklist`, param)
-          .then(ress => {
-            this.col = ress.data.column
-            this.data = ress.data.data
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        let param = {
+          "msisdn": data.msisdn
+        }
+        let spit = data.msisdn.split('')
+        if (spit[0] !== "6" || spit[1] !== "6") {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'format is wrong'
           })
-          .catch(err => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: err.message
-            })
+          return false
+        }
+        axios.post(`${environment.URL_API}/blacklistdelete`, param)
+          .then(res => {
+            axios.post(`${environment.URL_API}/blacklist`, param)
+              .then(ress => {
+                this.col = ress.data.column
+                this.data = ress.data.data
+              }
+              )
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
           })
-      })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
-      })
+      }
+    })
+
+
 
   }
 
@@ -212,7 +223,42 @@ export class BlacklistComponent implements OnInit {
       })
   }
 
+  async removefile(data) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        axios.post(`${environment.URL_API}/Blacklistfiledelete`, data)
+          .then(res => {
+            axios.post(`${environment.URL_API}/Blacklistlist`)
+              .then(res => {
+                this.colexecl = res.data.column
+                this.dataexecl = res.data.data
+                Swal.fire(
+                  'Deleted!',
+                  'Your number has been deleted.',
+                  'success'
+                )
+              })
+              .catch(err => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.response.data.error
+                })
+              })
+          })
+      }
+    })
 
+
+  }
 
 
 
@@ -235,6 +281,19 @@ export class BlacklistComponent implements OnInit {
     formData.append('user', sessionStorage.getItem('user'));
     await axios.post(`${environment.URL_API}/Blacklistfile`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then(res => {
+        axios.post(`${environment.URL_API}/Blacklistlist`)
+          .then(res => {
+            console.log(res.data)
+            this.colexecl = res.data.column
+            this.dataexecl = res.data.data
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.response.data.error
+            })
+          })
         Swal.fire({
           icon: 'success',
           text: "Success",
@@ -270,4 +329,5 @@ export class BlacklistComponent implements OnInit {
         })
       })
   }
+
 }

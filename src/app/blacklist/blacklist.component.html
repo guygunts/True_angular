@@ -39,12 +39,9 @@
       </div>
   </div>
     </div>
-    <p-table [columns]="col"   [value]="data" [paginator]="true" [rows]="totalpage" [showCurrentPageReport]="true"  [(selection)]="selectedCars3" dataKey="msisdn"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <p-table [columns]="col"   [value]="data" [rows]="totalpage" [showCurrentPageReport]="true"     >
       <ng-template pTemplate="header" let-columns>
           <tr>
-              <th style="width: 3em">
-                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-              </th>
               <th *ngFor="let col of columns">
                   {{col.header}}
               </th>
@@ -53,11 +50,8 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr>
-              <td>
-                  <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-              </td>
               <td *ngFor="let col of columns">
-                  {{rowData[col.field]}}
+                {{rowData[col.field]}}
               </td>
               <td>
                 <button  pButton icon="pi pi-times" (click)="removefortable(rowData)"></button>
@@ -66,24 +60,37 @@
       </ng-template>
   </p-table>
   <div class="card-body"></div>
-  <p-table [columns]="colexecl" [value]="dataexecl" [paginator]="true" [rows]="totalpageexecl" [showCurrentPageReport]="true"    [totalRecords]="totalRecordsexecl">
+  <p-table [columns]="colexecl" [value]="dataexecl" [paginator]="true" [rows]="totalpageexecl" [showCurrentPageReport]="true"    [totalRecords]="totalRecordsexecl"  [(selection)]="selectedCars3" dataKey="id">
     <ng-template pTemplate="header" let-columns>
         <tr>
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
             <th *ngFor="let col of columns">
                 {{col.header}}
             </th>
-            <th style="width:4em"></th>
+            <th style="width:8em"></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
             <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
             </td>
             <td>
               <button pButton icon="pi pi-download" (click)="selectCarWithButton(rowData)" [disabled]="rowData.result_file == null"></button>
+              <button pButton icon="pi pi-times" (click)="removefile(rowData)" [disabled]="rowData.status ! == 'in progress'"></button>
           </td>
         </tr>
     </ng-template>  
+    <ng-template pTemplate="summary">
+      <div style="text-align:left">
+        <button type="button" pButton icon="pi pi-times" (click)="removefile(selectedCars3)" label="delete"></button>
+      </div>
+
+  </ng-template>
   </p-table>
   </div>

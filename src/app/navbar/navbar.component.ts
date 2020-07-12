@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { environment } from './../../environments/environment';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -27,6 +27,6 @@ export class NavbarComponent implements OnInit {
   }
   Signout() {
     sessionStorage.clear();
-    window.location.reload();
+    window.location.replace(environment.URL_BASE)
   }
 }

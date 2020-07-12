@@ -4,12 +4,14 @@ import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
 import { GeneratelicenseComponent } from './generatelicense/generatelicense.component';
 import { BlacklistComponent } from './blacklist/blacklist.component';
 import { LicenseComponent } from './license/license.component'
+import { PlanOffersComponent } from './plan-offers/plan-offers.component'
 const routes: Routes = [
-  { path: '', redirectTo: '/AdjustSpeed', pathMatch: 'full' },
+  // { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'AdjustSpeed', component: AdjustSpeedComponent },
   { path: 'Generatelicense', component: GeneratelicenseComponent },
   { path: 'blacklist', component: BlacklistComponent },
-  { path: 'License', component: LicenseComponent }
+  { path: 'License', component: LicenseComponent },
+  { path: 'offer', component: PlanOffersComponent }
 ];
 
 @NgModule({
