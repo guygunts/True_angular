@@ -48,7 +48,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumericDirective } from './numeric.directive';
 import { BlacklistComponent } from './blacklist/blacklist.component';
-import { LicenseComponent } from './license/license.component';
+
 import { PlanOffersComponent } from './plan-offers/plan-offers.component';
 
 @NgModule({
@@ -61,7 +61,6 @@ import { PlanOffersComponent } from './plan-offers/plan-offers.component';
     GeneratelicenseComponent,
     NumericDirective,
     BlacklistComponent,
-    LicenseComponent,
     PlanOffersComponent,
 
   ],

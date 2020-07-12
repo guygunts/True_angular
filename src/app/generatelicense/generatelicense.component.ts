@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 })
 export class GeneratelicenseComponent implements OnInit {
   loginForm: FormGroup;
+  loginFormfps: FormGroup;
   generate
   amounttps
   checked = false;
@@ -23,7 +24,10 @@ export class GeneratelicenseComponent implements OnInit {
         this.checked = res.data.status
       })
     this.loginForm = this.formBuilder.group({
-      token: [null, Validators.compose([])]
+      token: [, Validators.compose([Validators.required])],
+    });
+    this.loginFormfps = this.formBuilder.group({
+      tokentps: [, Validators.compose([Validators.required])],
     });
   }
   async Change(event) {
@@ -91,6 +95,30 @@ export class GeneratelicenseComponent implements OnInit {
           text: res.data.mess,
         })
         window.location.reload();
+        return false
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.message
+        })
+      })
+  }
+
+
+
+  async onSubmittps() {
+    let param = {
+      "token": this.loginForm.value.tokentps
+    }
+    await axios.post(`${environment.URL_API}/generatelicense`, param)
+      .then(res => {
+
+        Swal.fire({
+          icon: 'success',
+          text: res.data.token,
+        })
         return false
       })
       .catch(err => {
