@@ -4,6 +4,7 @@ import { environment } from './../../environments/environment';
 import Swal from 'sweetalert2'
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { saveAs } from 'file-saver';
+import { BlacklistService } from './blacklist.service'
 @Component({
   selector: 'app-blacklist',
   templateUrl: './blacklist.component.html',
@@ -36,22 +37,19 @@ export class BlacklistComponent implements OnInit {
   totalpageexecl = 5
   //////////execl table///////////
 
-  constructor(private formBuilder: FormBuilder,) { }
+  constructor(private formBuilder: FormBuilder, private blacklistservice: BlacklistService) { }
 
   ngOnInit() {
-    axios.post(`${environment.URL_API}/Blacklistlist`)
-      .then(res => {
-        console.log(res.data)
-        this.colexecl = res.data.column
-        this.dataexecl = res.data.data
+    this.blacklistservice.Blacklistlist().then(res => {
+      this.colexecl = res.data.column
+      this.dataexecl = res.data.data
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.error
       })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.response.data.error
-        })
-      })
+    })
     let date: Date = new Date();
     let dates = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     this.dateTime = dates + ' ' + '23:59:59';
@@ -90,21 +88,18 @@ export class BlacklistComponent implements OnInit {
       })
       return false
     }
-
-    await axios.post(`${environment.URL_API}/blacklistadd`, param)
-      .then(res => {
-        Swal.fire({
-          icon: 'success',
-          text: "Success",
-        })
+    this.blacklistservice.blacklistadd(param).then(res => {
+      Swal.fire({
+        icon: 'success',
+        text: "Success",
       })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.response.data.error
-        })
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.error
       })
+    })
   }
 
   async remove() {
@@ -131,69 +126,22 @@ export class BlacklistComponent implements OnInit {
           })
           return false
         }
-        axios.post(`${environment.URL_API}/blacklistdelete`, param)
-          .then(res => {
-            axios.post(`${environment.URL_API}/blacklist`, param)
-              .then(ress => {
-                this.col = ress.data.column
-                this.data = ress.data.data
-              })
-            Swal.fire(
-              'Deleted!',
-              'Your number has been deleted.',
-              'success'
-            )
+        this.blacklistservice.blacklistdelete(param).then(ress => {
+          this.blacklistservice.blacklist(param).then(res => {
+            this.col = res.data.column
+            this.data = res.data.data
           })
+          Swal.fire(
+            'Deleted!',
+            'Your number has been deleted.',
+            'success'
+          )
+        })
       }
     })
 
 
   }
-
-  async removefortable(data) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        let param = {
-          "msisdn": data.msisdn
-        }
-        let spit = data.msisdn.split('')
-        if (spit[0] !== "6" || spit[1] !== "6") {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'format is wrong'
-          })
-          return false
-        }
-        axios.post(`${environment.URL_API}/blacklistdelete`, param)
-          .then(res => {
-            axios.post(`${environment.URL_API}/blacklist`, param)
-              .then(ress => {
-                this.col = ress.data.column
-                this.data = ress.data.data
-              }
-              )
-            Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
-          })
-      }
-    })
-
-
-
-  }
-
 
 
   async search() {
@@ -209,18 +157,17 @@ export class BlacklistComponent implements OnInit {
       })
       return false
     }
-    await axios.post(`${environment.URL_API}/blacklist`, param)
-      .then(res => {
-        this.col = res.data.column
-        this.data = res.data.data
+    this.blacklistservice.blacklist(param).then(res => {
+      this.col = res.data.column
+      this.data = res.data.data
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.message
       })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
-      })
+    })
+
   }
 
   async removefile(data) {
@@ -234,26 +181,23 @@ export class BlacklistComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        axios.post(`${environment.URL_API}/Blacklistfiledelete`, data)
-          .then(res => {
-            axios.post(`${environment.URL_API}/Blacklistlist`)
-              .then(res => {
-                this.colexecl = res.data.column
-                this.dataexecl = res.data.data
-                Swal.fire(
-                  'Deleted!',
-                  'Your number has been deleted.',
-                  'success'
-                )
-              })
-              .catch(err => {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: err.response.data.error
-                })
-              })
+        this.blacklistservice.Blacklistfiledelete(data).then(res => {
+          this.blacklistservice.Blacklistlist().then(res => {
+            this.colexecl = res.data.column
+            this.dataexecl = res.data.data
           })
+          Swal.fire(
+            'Deleted!',
+            'Your number has been deleted.',
+            'success'
+          )
+        }).catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.error
+          })
+        })
       }
     })
 
@@ -279,33 +223,19 @@ export class BlacklistComponent implements OnInit {
     formData.append('file', this.currentFile);
     formData.append('time', formattaime);
     formData.append('user', sessionStorage.getItem('user'));
-    await axios.post(`${environment.URL_API}/Blacklistfile`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-      .then(res => {
-        axios.post(`${environment.URL_API}/Blacklistlist`)
-          .then(res => {
-            console.log(res.data)
-            this.colexecl = res.data.column
-            this.dataexecl = res.data.data
-          })
-          .catch(err => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: err.response.data.error
-            })
-          })
-        Swal.fire({
-          icon: 'success',
-          text: "Success",
-        })
+
+    this.blacklistservice.Blacklistfile(formData).then(res => {
+      this.blacklistservice.Blacklistlist().then(res => {
+        this.colexecl = res.data.column
+        this.dataexecl = res.data.data
       })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.message
       })
+    })
 
   }
   changeListener(event) {
@@ -316,18 +246,25 @@ export class BlacklistComponent implements OnInit {
     let formData = {
       'file': data.result_file
     }
-    await axios.post(`${environment.URL_API}/Blacklistdownload`, formData)
-      .then(res => {
-        let blob = new Blob(['\ufeff', res.data], { type: "text/csv;charset=utf-8" });
+    this.blacklistservice.Blacklistdownload(formData).then(res => {
+      let blob = new Blob(['\ufeff', res.data], { type: "text/csv;charset=utf-8" });
+      if (res.data) {
         saveAs(blob, "Result.csv");
-      })
-      .catch(err => {
+      } else {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: err.message
+          text: res.message
         })
+      }
+
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.message
       })
+    })
   }
 
 }

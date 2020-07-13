@@ -32,9 +32,9 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { MessageModule, KeyFilterModule } from 'primeng/primeng';
-import {ChartModule} from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 ///////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
@@ -42,13 +42,14 @@ import { MatCardModule } from '@angular/material/card';
 //////////////////////////////////////////////////
 
 import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
+import { AdjustSpeedService } from './adjust-speed/adjust-speed.service';
 import { GeneratelicenseComponent } from './generatelicense/generatelicense.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NumericDirective } from './numeric.directive';
 import { BlacklistComponent } from './blacklist/blacklist.component';
-import { LicenseComponent } from './license/license.component';
+
 import { PlanOffersComponent } from './plan-offers/plan-offers.component';
 
 @NgModule({
@@ -61,8 +62,8 @@ import { PlanOffersComponent } from './plan-offers/plan-offers.component';
     GeneratelicenseComponent,
     NumericDirective,
     BlacklistComponent,
-    LicenseComponent,
-    PlanOffersComponent,
+    PlanOffersComponent
+
 
   ],
   imports: [
