@@ -27,6 +27,6 @@ export class NavbarComponent implements OnInit {
   }
   Signout() {
     sessionStorage.clear();
-    window.location.replace(environment.URL_BASE)
+     window.location.replace(environment.URL_BASE)
   }
 }

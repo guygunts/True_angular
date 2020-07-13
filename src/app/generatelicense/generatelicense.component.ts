@@ -116,27 +116,4 @@ export class GeneratelicenseComponent implements OnInit {
     })
   }
 
-
-
-  async onSubmittps() {
-    let param = {
-      "token": this.loginForm.value.tokentps
-    }
-    await axios.post(`${environment.URL_API}/generatelicense`, param)
-      .then(res => {
-
-        Swal.fire({
-          icon: 'success',
-          text: res.data.token,
-        })
-        return false
-      })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
-      })
-  }
 }

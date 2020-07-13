@@ -51,6 +51,8 @@ import { NumericDirective } from './numeric.directive';
 import { BlacklistComponent } from './blacklist/blacklist.component';
 
 import { PlanOffersComponent } from './plan-offers/plan-offers.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { PlanOffersComponent } from './plan-offers/plan-offers.component';
     NumericDirective,
     BlacklistComponent,
     PlanOffersComponent,
+    NotfoundComponent,
+    HomeComponent,
 
   ],
   imports: [
