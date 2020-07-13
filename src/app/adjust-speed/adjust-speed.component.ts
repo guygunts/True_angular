@@ -1,11 +1,9 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from './../service/authentication.service';
-import axios from "axios";
-import { environment } from './../../environments/environment';
 import Swal from 'sweetalert2'
 import { AppService } from '../app.service';
+import { AdjustSpeedService } from './adjust-speed.service';
 @Component({
   selector: 'app-adjust-speed',
   inputs: ['name'],
@@ -24,8 +22,8 @@ export class AdjustSpeedComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private appService: AppService
+    private appService: AppService,
+    private AdjustSpeed: AdjustSpeedService
   ) {
 
   }
@@ -89,53 +87,51 @@ export class AdjustSpeedComponent implements OnInit {
       "type": this.loginForm.value.type,
       "user": sessionStorage.getItem('user')
     }
-    //http://192.168.38.201:4200
-    await axios.post(`${environment.URL_API}/adjustspeed`, params)
-      .then(res => {
-        if (res.data.code == '200') {
-          Swal.fire({
-            icon: 'success',
-            text: "Success",
-          })
-          return false
-        }
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: res.data.error
-        })
-        console.log(res)
-      })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err
-        })
-      })
-  }
 
-  async uploadfile() {
-    console.log(this.datafromfile)
-    await axios.post(`http://192.168.38.201:4200/uploadadjustspeed`, this.datafromfile)
-      .then(res => {
-        res.data.result.forEach(element => {
-          this.MyCSV.push(element)
-        });
+    await this.AdjustSpeed.adjustspeed(params).then(res => {
+      if (res.code == '200') {
         Swal.fire({
           icon: 'success',
           text: "Success",
         })
-        this.statusdownload = 1
+        return false
+      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: res.error
       })
-      .catch(err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err
-        })
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err
       })
+    })
+
   }
+
+  async uploadfile() {
+    console.log(this.datafromfile)
+    await this.AdjustSpeed.uploadadjustspeed(this.datafromfile).then(res => {
+      res.result.forEach(element => {
+        this.MyCSV.push(element)
+      });
+      Swal.fire({
+        icon: 'success',
+        text: "Success",
+      })
+      this.statusdownload = 1
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err
+      })
+    })
+  }
+
+
   changeListener(files: FileList) {
     if (files && files.length > 0) {
       let file: File = files.item(0);
@@ -173,6 +169,7 @@ export class AdjustSpeedComponent implements OnInit {
   }
 
   download() {
+    console.log(this.MyCSV)
     this.appService.downloadFile(this.MyCSV, 'Result');
   }
 
