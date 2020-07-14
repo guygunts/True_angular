@@ -1,1 +1,35 @@
-<p>plan-offers works!</p>
+<p-table #dt [columns]="selectedColumns" [value]="data" [scrollable]="true" [style]="{width:'auto'}" scrollHeight="400px" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true">
+    <ng-template pTemplate="caption">
+        <div >
+            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
+                        <i class="pi pi-search" ></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col *ngFor="let col of columns" style="width:250px">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let colheader of columns" [pSortableColumn]="colheader.field" pResizableColumn pReorderableColumn>
+                {{colheader.header}}
+                <p-sortIcon [field]="colheader.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" pButton icon="pi pi-plus"  label="Add"></button>
+        </div>
+    </ng-template> 
+</p-table>

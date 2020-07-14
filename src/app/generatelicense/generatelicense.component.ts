@@ -59,7 +59,7 @@ export class GeneratelicenseComponent implements OnInit {
           "status": status,
           "user": sessionStorage.getItem('user')
         }
-        this.generate.updatestastus(param).then(res => {
+        this.service.updatestastus(param).then(res => {
           Swal.fire(
             'Change!',
             'success'

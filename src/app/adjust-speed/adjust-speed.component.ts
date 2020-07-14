@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { AppService } from '../app.service';
 import { AdjustSpeedService } from './adjust-speed.service';
+import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 @Component({
   selector: 'app-adjust-speed',
   inputs: ['name'],
@@ -33,7 +34,7 @@ export class AdjustSpeedComponent implements OnInit {
     this.statusdownload = 0
     this.loginForm = this.formBuilder.group({
       type: ['CPID'],
-      CPID: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(250)])],
+      CPID: [null, Validators.compose([])],
       MSISDN: ['66'],
       maxMediaRateKbps: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.max(9999999)])],
       cpidState: ['None'],
@@ -59,26 +60,14 @@ export class AdjustSpeedComponent implements OnInit {
 
   async onSubmit() {
 
-    let dataday: number
+    let dataday: number = 0
     let CPID: string
-    if (this.loginForm.value.day) {
-      dataday = this.loginForm.value.day * 1440
-      if (dataday == 129600) {
-        this.loginForm.value.hr = 0
-        this.loginForm.value.min = 0
-      }
-    }
-    if (this.loginForm.value.hr) {
-      dataday += this.loginForm.value.hr * 60
-    }
-    if (this.loginForm.value.min) {
-      dataday += this.loginForm.value.min
-    }
     if (this.loginForm.value.type == 'MSISDN') {
       CPID = this.loginForm.value.MSISDN
     } else if (this.loginForm.value.type == 'CPID') {
       CPID = this.loginForm.value.CPID
     }
+    dataday = + ((+this.loginForm.value.day * 1440) + (+this.loginForm.value.hr * 60) + (+this.loginForm.value.min))
     let params = {
       "maxMediaRateKbps": this.loginForm.value.maxMediaRateKbps,
       "expirationTime": dataday,
