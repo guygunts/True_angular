@@ -8,7 +8,10 @@ import { planoffersService } from './plan-offers.service'
 export class PlanOffersComponent {
   cols: any[];
   data: any[];
+  datajson: {};
   _selectedColumns: any[];
+  first = 0
+  displayDialog: boolean;
 
   constructor(private offers: planoffersService) {
 
@@ -28,6 +31,11 @@ export class PlanOffersComponent {
 
   set selectedColumns(val: any[]) {
     this._selectedColumns = this.cols.filter(col => val.includes(col));
+  }
+
+  showDialogToAdd() {
+    this.datajson = {};
+    this.displayDialog = true;
   }
 
 }

@@ -1,4 +1,4 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [scrollable]="true" [style]="{width:'auto'}" scrollHeight="400px" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true">
+<p-table #dt [columns]="selectedColumns" [value]="data" [scrollable]="true" [style]="{width:'auto'}" scrollHeight="400px" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
     <ng-template pTemplate="caption">
         <div >
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
@@ -29,7 +29,45 @@
     </ng-template>
     <ng-template pTemplate="summary" let-rowData>
         <div style="text-align:left">
-            <button type="button" pButton icon="pi pi-plus"  label="Add"></button>
+            <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
         </div>
     </ng-template> 
 </p-table>
+
+
+
+
+<p-dialog header="add new offers" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+    <div class="p-grid ui-fluid" >
+        <div class="p-col-4">
+            <label for="vin">Vin</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="vin"  autofocus />
+        </div>
+        <div class="p-col-4">
+            <label for="year">Year</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="year" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">Brand</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="brand" />
+        </div>
+        <div class="p-col-4">
+            <label for="color">Color</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText id="color" />
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times"  label="reset"></button>
+            <button type="button" pButton icon="pi pi-check"  label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
