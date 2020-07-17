@@ -1,8 +1,8 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [scrollable]="true" [style]="{width:'auto'}" scrollHeight="400px" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+<p-table #dt [columns]="cols" [value]="data" [scrollable]="true" [style]="{width:'auto'}"  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="id" editMode="row" [(selection)]="selectedCars3">
     <ng-template pTemplate="caption">
         <div >
-            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
+            <!-- <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect> -->
                         <i class="pi pi-search" ></i>
                         <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
         </div>
@@ -14,22 +14,260 @@
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
+            <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
             <th *ngFor="let colheader of columns" [pSortableColumn]="colheader.field" pResizableColumn pReorderableColumn>
                 {{colheader.header}}
                 <p-sortIcon [field]="colheader.field"></p-sortIcon>
             </th>
+            <th style="width: 8em">
+               
+            </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr>
-            <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
+    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="rowData">
+            <td>
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <p-inputNumber [(ngModel)]="rowData.Payment_Type" mode="decimal" [useGrouping]="false" required>
+                        </p-inputNumber>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.Payment_Type}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.offer_promoMessage">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.offer_promoMessage}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.operatorBrandName">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.operatorBrandName}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.planName">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.planName}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.planId">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.planId}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.planDescription">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.planDescription}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.promoMessage">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.promoMessage}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.languageCode">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.languageCode}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.overusagePolicy">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.overusagePolicy}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.maxRateKbps">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.maxRateKbps}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.currencyCode">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.currencyCode}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.units">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.units}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <p-inputNumber [(ngModel)]="rowData.nanos" mode="decimal" [useGrouping]="false" >
+                        </p-inputNumber>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.nanos}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.duration">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.duration}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.offerContext">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.offerContext}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.connectionType">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.connectionType}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.refreshPeriod">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.refreshPeriod}}
+                    </ng-template>
+                </p-cellEditor>
+
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.quotaBytes">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.quotaBytes}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.quotaMinutes">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.quotaMinutes}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <p-calendar [(ngModel)]="rowData.quotaMinutes"></p-calendar>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.expireTime}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+                <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.formOfPayment">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.formOfPayment}}
+                    </ng-template>
+                </p-cellEditor>
+
+            </td>
+            <td>
+                {{rowData.create_dt}}
+            </td>
+            <td>
+                {{rowData.create_by}}
+            </td>
+            <td>
+                {{rowData.update_dt}}
+            </td>
+            <td>
+                {{rowData.update_by}}
+            </td>
+             <td style="text-align:center">
+                <button *ngIf="!editing" pButton type="button" pInitEditableRow   icon="pi pi-pencil" class="ui-button-info" ></button> 
+                <button *ngIf="editing" pButton type="button" pSaveEditableRow  icon="pi pi-check" class="ui-button-success" style="margin-right: .5em"></button>
+                 <button *ngIf="editing" pButton type="button" pCancelEditableRow  icon="pi pi-times" class="ui-button-danger" ></button> 
+            </td> 
         </tr>
     </ng-template>
     <ng-template pTemplate="summary" let-rowData>
         <div style="text-align:left">
             <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+            <button type="button" pButton icon="pi pi-plus"  label="delete"></button>
         </div>
     </ng-template> 
 </p-table>
@@ -37,37 +275,158 @@
 
 
 
-<p-dialog header="add new offers" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+<p-dialog header="add new offers" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '650px'}" >
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="p-grid ui-fluid" >
         <div class="p-col-4">
-            <label for="vin">Vin</label>
+            <label for="vin">Payment_Type</label>
         </div>
         <div class="p-col-8">
-            <input pInputText id="vin"  autofocus />
+            <p-inputNumber formControlName="Payment_Type" mode="decimal" [useGrouping]="false">
+            </p-inputNumber>
         </div>
         <div class="p-col-4">
-            <label for="year">Year</label>
+            <label for="year">offer_promoMessage</label>
         </div>
         <div class="p-col-8">
-            <input pInputText id="year" />
+            <input pInputText formControlName="offer_promoMessage" />
         </div>
         <div class="p-col-4">
-            <label for="brand">Brand</label>
+            <label for="brand">operatorBrandName</label>
         </div>
         <div class="p-col-8">
-            <input pInputText id="brand" />
+            <input pInputText formControlName="operatorBrandName" />
         </div>
         <div class="p-col-4">
-            <label for="color">Color</label>
+            <label for="color">planName</label>
         </div>
         <div class="p-col-8">
-            <input pInputText id="color" />
+            <input pInputText formControlName="planName" />
         </div>
+
+        <div class="p-col-4">
+            <label for="vin">planId</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="planId"  />
+        </div>
+        <div class="p-col-4">
+            <label for="year">planDescription</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="planDescription" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">promoMessage</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="promoMessage" />
+        </div>
+        <div class="p-col-4">
+            <label for="color">languageCode</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="languageCode" />
+        </div>
+ 
+
+    <div class="p-col-4">
+        <label for="vin">overusagePolicy</label>
     </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="overusagePolicy"  />
+    </div>
+    <div class="p-col-4">
+        <label for="year">maxRateKbps</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="maxRateKbps" />
+    </div>
+    <div class="p-col-4">
+        <label for="brand">currencyCode</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="currencyCode" />
+    </div>
+    <div class="p-col-4">
+        <label for="color">units</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="units" />
+    </div>
+
+    
+    <div class="p-col-4">
+        <label for="vin">nanos</label>
+    </div>
+    <div class="p-col-8">
+        <p-inputNumber formControlName="nanos" mode="decimal" [useGrouping]="false">
+        </p-inputNumber>
+    </div>
+    <div class="p-col-4">
+        <label for="year">duration</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="duration" />
+    </div>
+    <div class="p-col-4">
+        <label for="brand">offerContext</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="offerContext" />
+    </div>
+    <div class="p-col-4">
+        <label for="color">trafficCategories</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="trafficCategories" />
+    </div>
+
+    <div class="p-col-4">
+        <label for="vin">connectionType</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="connectionType"  />
+    </div>
+    <div class="p-col-4">
+        <label for="year">refreshPeriod</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="refreshPeriod" />
+    </div>
+    <div class="p-col-4">
+        <label for="brand">quotaBytes</label>
+    </div>
+    <div class="p-col-8">
+        <p-inputNumber formControlName="quotaBytes" mode="decimal" [useGrouping]="false">
+        </p-inputNumber>
+    </div>
+    <div class="p-col-4">
+        <label for="color">quotaMinutes</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="quotaMinutes" />
+    </div>
+    <div class="p-col-4">
+        <label for="color">expireTime</label>
+    </div>
+    <div class="p-col-8">
+        <p-calendar formControlName="expireTime" [showIcon]="true"></p-calendar>
+    </div>
+    <div class="p-col-4">
+        <label for="color">formOfPayment</label>
+    </div>
+    <div class="p-col-8">
+        <input pInputText formControlName="formOfPayment" />
+    </div>
+</div>
+
+<div class="form-control"></div>
     <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-times"  label="reset"></button>
-            <button type="button" pButton icon="pi pi-check"  label="Save"></button>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix" style="text-align:right">
+            <button type="reset" pButton icon="pi pi-times"  label="reset"></button>
+            <button type="summit" pButton icon="pi pi-check"  label="Save" [disabled]="!loginForm.valid"></button>
         </div>
     </p-footer>
+</form>
 </p-dialog>

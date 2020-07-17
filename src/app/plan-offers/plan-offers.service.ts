@@ -1,15 +1,18 @@
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import axios from "axios";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
     providedIn: 'root'
 })
 export class planoffersService {
-    //    //http://192.168.38.201:4200
-    constructor() { }
+    constructor(private http: HttpClient) {
+
+    }
 
     async offerslist() {
-        return await axios.post(`${environment.URL_API}/planofferlist`)
+
+        return await axios.get(`/offerlist`)
             .then(res => {
                 return res.data
             })

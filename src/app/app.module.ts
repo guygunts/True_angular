@@ -35,6 +35,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MessageModule, KeyFilterModule } from 'primeng/primeng';
 import { ChartModule } from 'primeng/chart';
+import { InputNumberModule } from 'primeng/inputnumber';
 ///////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
@@ -42,7 +43,6 @@ import { MatCardModule } from '@angular/material/card';
 //////////////////////////////////////////////////
 
 import { AdjustSpeedComponent } from './adjust-speed/adjust-speed.component';
-import { AdjustSpeedService } from './adjust-speed/adjust-speed.service';
 import { GeneratelicenseComponent } from './generatelicense/generatelicense.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -105,8 +105,8 @@ import { HomeComponent } from './home/home.component';
     SplitButtonModule,
     MessageModule,
     KeyFilterModule,
-    ChartModule
-
+    ChartModule,
+    InputNumberModule
 
   ],
   providers: [AppService],
