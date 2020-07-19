@@ -15,6 +15,9 @@ export class PlanOffersComponent {
   first = 0
   displayDialog: boolean;
   selectedCars3: [];
+  dataedit={}
+  action:String
+  idedit
   constructor(private offers: planoffersService, private formBuilder: FormBuilder) {
 
   }
@@ -43,7 +46,6 @@ export class PlanOffersComponent {
       quotaMinutes: [, Validators.compose([])],
       expireTime: [, Validators.compose([])],
       formOfPayment: [, Validators.compose([])],
-      user: sessionStorage.getItem('user')
     });
     this.offers.offerslist().then(res => {
       console.log(res)
@@ -63,6 +65,9 @@ export class PlanOffersComponent {
   }
 
   showDialogToAdd() {
+    this.action="add"
+     this.idedit =null
+    this.loginForm.reset();
     this.displayDialog = true;
   }
 
@@ -72,7 +77,24 @@ export class PlanOffersComponent {
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     let dateTime = date + ' ' + time;
     this.loginForm.value.expireTime = dateTime
-    this.offers.offerinsert(this.loginForm.value).then(res => {
+    this.loginForm.value['user']=sessionStorage.getItem('user')
+    console.log(this.idedit)
+    if(this.idedit !== null){
+      this.loginForm.value['id']=this.idedit
+      this.offers.offeredit(this.loginForm.value).then(res => {
+        Swal.fire({
+          icon: 'success',
+          text: res.mess,
+        })
+        this.displayDialog = false;
+        this.offers.offerslist().then(res => {
+          this.cols = res.columnname
+          this.data = res.data
+          this._selectedColumns = this.cols
+        })
+      })
+    }else{
+      this.offers.offerinsert(this.loginForm.value).then(res => {
       Swal.fire({
         icon: 'success',
         text: res.mess,
@@ -84,6 +106,61 @@ export class PlanOffersComponent {
         this._selectedColumns = this.cols
       })
     })
+    }
+    
   }
 
+  onRowSelect(event) {
+    this.dataedit={}
+    this.action="edit"
+    this.dataedit = this.cloneCar(event[0]);
+    this.idedit=this.dataedit['id']
+     delete this.dataedit['id'];
+     delete this.dataedit['create_dt'];
+     delete this.dataedit['create_by'];
+     delete this.dataedit['update_dt'];
+     delete this.dataedit['update_by'];
+
+     let today = new Date(this.dataedit['expireTime']);
+    this.dataedit['expireTime']=today
+    this.loginForm.setValue(this.dataedit)
+    this.displayDialog = true;
+}
+
+cloneCar(data) {
+  let car = {};
+  for (let prop in data) {
+      car[prop] = data[prop];
+  }
+  return car;
+}
+
+deltedata(data){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      this.offers.offerdelete(data).then(res => {
+        Swal.fire({
+          icon: 'success',
+          text: res.mess,
+        })
+        this.displayDialog = false;
+        this.offers.offerslist().then(res => {
+          this.cols = res.columnname
+          this.data = res.data
+          this._selectedColumns = this.cols
+        })
+      })
+    }
+  })
+
+  
+}
 }
