@@ -1,4 +1,4 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [scrollable]="true" [style]="{width:'auto'}"  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="id" [(selection)]="selectedCars3" selectionMode="single"  [paginator]="true">
+<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="id" [(selection)]="selectedCars3" >
     <ng-template pTemplate="caption">
         <div >
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
@@ -9,12 +9,14 @@
     </ng-template>
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
+            <col  style="width: 3em">
             <col *ngFor="let col of columns" style="width:250px">
+            <col  >
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th style="width: 3em">
+            <th >
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -25,7 +27,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr >
-            <td>
+            <td >
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
             <td *ngFor="let col of columns">
