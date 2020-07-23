@@ -38,7 +38,7 @@
     <ng-template pTemplate="summary" let-rowData>
         <div style="text-align:left">
             <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
-            <button type="button" pButton icon="pi pi-exclamation-circle"  (click)="deltedata(selectedCars3)" label="delete" ></button>
+            <button type="button" pButton icon="pi pi-exclamation-circle"  (click)="deltedata(selectedCars3)" label="delete" [disabled]="selectedCars3?.length == 0 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>
             <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>
         </div>
     </ng-template> 

@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,10 @@ import { environment } from './../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  @HostListener("window:onbeforeunload", ["$event"]) onBeforeUnload(event) {
+    sessionStorage.clear();
+
+  }
   title = environment.title;
   user = sessionStorage.getItem('user')
   dataport = []

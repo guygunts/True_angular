@@ -53,6 +53,7 @@ import { BlacklistComponent } from './blacklist/blacklist.component';
 import { PlanOffersComponent } from './plan-offers/plan-offers.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { HomeComponent } from './home/home.component';
+import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { HomeComponent } from './home/home.component';
     PlanOffersComponent,
     NotfoundComponent,
     HomeComponent,
+    UsermanagementComponent,
 
   ],
   imports: [
