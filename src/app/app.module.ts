@@ -54,6 +54,7 @@ import { PlanOffersComponent } from './plan-offers/plan-offers.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { HomeComponent } from './home/home.component';
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
+import { SpeedmappingComponent } from './speedmapping/speedmapping.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { UsermanagementComponent } from './usermanagement/usermanagement.compone
     NotfoundComponent,
     HomeComponent,
     UsermanagementComponent,
+    SpeedmappingComponent,
 
   ],
   imports: [

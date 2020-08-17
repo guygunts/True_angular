@@ -7,6 +7,7 @@ import { PlanOffersComponent } from './plan-offers/plan-offers.component'
 import { NotfoundComponent } from './notfound/notfound.component'
 import { HomeComponent } from './home/home.component'
 import { UsermanagementComponent } from './usermanagement/usermanagement.component'
+import { SpeedmappingComponent } from './speedmapping/speedmapping.component'
 import { authpaths } from './authrouter';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'blacklist', component: BlacklistComponent, canActivate: [authpaths] },
   { path: 'offer', component: PlanOffersComponent, canActivate: [authpaths] },
   { path: 'usermanagement', component: UsermanagementComponent, canActivate: [authpaths] },
+  { path: 'speedmap', component: SpeedmappingComponent, canActivate: [authpaths] },
   { path: 'home', component: HomeComponent, },
   { path: '**', component: NotfoundComponent },
 

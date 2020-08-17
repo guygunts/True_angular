@@ -1,4 +1,4 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="id" [(selection)]="selectedCars3" >
+<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="no" [(selection)]="selectedCars3" >
     <ng-template pTemplate="caption">
         <div >
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
@@ -9,7 +9,7 @@
     </ng-template>
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
-            <col  style="width: 3em">
+            <col  style="width: 6em">
             <col *ngFor="let col of columns" style="width:250px">
             <col  >
         </colgroup>
@@ -47,156 +47,78 @@
 
 
 
-<p-dialog header="add new offers" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '650px'}" >
+<p-dialog header="add new offers" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="p-grid ui-fluid" >
         <div class="p-col-4">
             <label for="vin">Payment_Type*</label>
         </div>
         <div class="p-col-8">
-            <p-inputNumber formControlName="Payment_Type" mode="decimal" [useGrouping]="false">
-            </p-inputNumber>
+            <p-dropdown [options]="PaymentTypeoptions" placeholder="Select Payment Type"  formControlName="Payment_Type"></p-dropdown>
         </div>
+  
         <div class="p-col-4">
-            <label for="year">offer_promoMessage</label>
+            <label for="brand">promoMessage_th</label>
         </div>
         <div class="p-col-8">
-            <input pInputText formControlName="offer_promoMessage" />
+            <input pInputText formControlName="promoMessage_th" />
         </div>
         <div class="p-col-4">
-            <label for="brand">operatorBrandName</label>
+            <label for="color">promoMessage_en</label>
         </div>
         <div class="p-col-8">
-            <input pInputText formControlName="operatorBrandName" />
+            <input pInputText formControlName="promoMessage_en" />
         </div>
         <div class="p-col-4">
-            <label for="color">planName</label>
+            <label for="brand">planId</label>
         </div>
         <div class="p-col-8">
-            <input pInputText formControlName="planName" />
-        </div>
-
-        <div class="p-col-4">
-            <label for="vin">planId</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText formControlName="planId"  />
+        <p-dropdown [options]="planIdoptions"  placeholder="Select Plan ID" formControlName="planId" [filter]="true"  [disabled]="action == 'edit'" [virtualScroll]="true" [itemSize]="31"></p-dropdown>
         </div>
         <div class="p-col-4">
-            <label for="year">planDescription</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText formControlName="planDescription" />
-        </div>
-        <div class="p-col-4">
-            <label for="brand">promoMessage</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText formControlName="promoMessage" />
-        </div>
-        <div class="p-col-4">
-            <label for="color">languageCode</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText formControlName="languageCode" />
-        </div>
+            <label for="vin">formOfPayment</label>
+          </div>
+          <div class="p-col-8">
  
-
-    <div class="p-col-4">
-        <label for="vin">overusagePolicy</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="overusagePolicy"  />
-    </div>
-    <div class="p-col-4">
-        <label for="year">maxRateKbps</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="maxRateKbps" />
-    </div>
-    <div class="p-col-4">
-        <label for="brand">currencyCode</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="currencyCode" />
-    </div>
-    <div class="p-col-4">
-        <label for="color">units</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="units" />
-    </div>
-
+          <p-dropdown [options]="formofoptions"  placeholder="Select Form Of Payment"  formControlName="formOfPayment"  >
+  
+          </p-dropdown>
     
-    <div class="p-col-4">
-        <label for="vin">nanos</label>
-    </div>
-    <div class="p-col-8">
-        <p-inputNumber formControlName="nanos" mode="decimal" [useGrouping]="false">
-        </p-inputNumber>
-    </div>
-    <div class="p-col-4">
-        <label for="year">duration</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="duration" />
-    </div>
-    <div class="p-col-4">
-        <label for="brand">offerContext</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="offerContext" />
-    </div>
-    <div class="p-col-4">
-        <label for="color">trafficCategories</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="trafficCategories" />
-    </div>
+          </div>
+        <div *ngIf="action == 'edit'">
+        <div class="p-col-4">
+                <label for="year">Company</label>
+        </div>
+        <div class="p-col-8">
+                <input pInputText formControlName="Company" disabled/>
+        </div>
+        <div class="p-col-4">
+            <label for="vin">planName_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="planName_th"  disabled/>
+        </div>
+        <div class="p-col-4">
+            <label for="year">planName_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="planName_en" disabled/>
+        </div>
 
-    <div class="p-col-4">
-        <label for="vin">connectionType</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="connectionType"  />
-    </div>
-    <div class="p-col-4">
-        <label for="year">refreshPeriod</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="refreshPeriod" />
-    </div>
-    <div class="p-col-4">
-        <label for="brand">quotaBytes</label>
-    </div>
-    <div class="p-col-8">
-        <p-inputNumber formControlName="quotaBytes" mode="decimal" [useGrouping]="false">
-        </p-inputNumber>
-    </div>
-    <div class="p-col-4">
-        <label for="color">quotaMinutes</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="quotaMinutes" />
-    </div>
-    <div class="p-col-4">
-        <label for="color">expireTime</label>
-    </div>
-    <div class="p-col-8">
-        <p-calendar formControlName="expireTime" [showIcon]="true"></p-calendar>
-    </div>
-    <div class="p-col-4">
-        <label for="color">formOfPayment</label>
-    </div>
-    <div class="p-col-8">
-        <input pInputText formControlName="formOfPayment" />
-    </div>
+        <div class="p-col-4">
+            <label for="color">units</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="units" disabled/>
+        </div>
+
+        </div>
 </div>
 
 <div class="form-control"></div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix" style="text-align:right">
-            <button type="reset" pButton icon="pi pi-times"  label="reset"></button>
+            <button type="reset" pButton icon="pi pi-times"  label="reset"  [disabled]="action == 'edit'"></button>
             <button type="summit" *ngIf="action == 'add'" pButton icon="pi pi-check"  label="Save" [disabled]="!loginForm.valid"></button>
             <button type="summit" *ngIf="action == 'edit'" pButton icon="pi pi-check"  label="edit" [disabled]="!loginForm.valid"></button>
         </div>
