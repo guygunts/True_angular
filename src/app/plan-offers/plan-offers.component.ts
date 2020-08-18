@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { planoffersService } from './plan-offers.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
+import { AppService } from '../app.service';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-plan-offers',
   templateUrl: './plan-offers.component.html',
@@ -12,6 +14,8 @@ export class PlanOffersComponent {
   data: any[];
   loginForm: FormGroup;
   _selectedColumns: any[];
+  selectedFiles: FileList;
+  datafromfile = []
   first = 0
   displayDialog: boolean;
   selectedCars3: [];
@@ -21,7 +25,7 @@ export class PlanOffersComponent {
   planIdoptions = []
   PaymentTypeoptions = []
   formofoptions = []
-  constructor(private offers: planoffersService, private formBuilder: FormBuilder) {
+  constructor(private offers: planoffersService, private appService: AppService, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       Payment_Type: [, [Validators.required]],
       Company: [],
@@ -194,7 +198,48 @@ export class PlanOffersComponent {
         })
       }
     })
+  }
 
+  changeListener(files: FileList) {
+    if (files && files.length > 0) {
+      let file: File = files[0];
+      let reader: FileReader = new FileReader();
+      reader.readAsText(file);
+      this.datafromfile = []
+      reader.onload = (e) => {
+        let csv: string = reader.result as string;
+        let lines = [];
+        let datasplit = csv.split(/\r\n/);
+        // let datajson = []
+        // let datahearder = datasplit[0].split(',');
 
+        const result = [];
+        const headers = datasplit[0].split(",");
+        for (let i = 1; i < datasplit.length; i++) {
+          const obj = {};
+          const currentline = datasplit[i].split(",");
+          if (currentline[0] != '') {
+            for (let j = 0; j < headers.length; j++) {
+              obj[headers[j]] = currentline[j];
+              if (obj[headers[j]] == obj['Payment_Type']) {
+                if (currentline[j] == 'Postpaid') {
+                  obj[headers[j]] = 0
+                } else if (currentline[j] == 'Prepaid') {
+                  obj[headers[j]] = 1
+                } else if (currentline[j] == 'All') {
+                  obj[headers[j]] = 2
+                }
+              }
+            }
+            obj['user'] = sessionStorage.getItem('user')
+            result.push(obj);
+          }
+        }
+        this.offers.offerinsertfile(result).then(res => {
+          this.appService.downloadFile(res.result, 'ResultInsertFile', ['planId', 'status']);
+        })
+
+      }
+    }
   }
 }

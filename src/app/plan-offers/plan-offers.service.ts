@@ -17,7 +17,10 @@ export class planoffersService {
 
                 let columnname = [{
                     "header": "No",
-                    "field": "no"
+                    "field": "no",
+                    "style": {
+                        "width": "6em"
+                    }
                 }]
                 res.data.columnname.forEach(element => {
                     columnname.push(element)
@@ -65,6 +68,17 @@ export class planoffersService {
 
     async offerdelete(data) {
         return await axios.post(`${environment.URL_API}/planofferdelete`, data)
+            .then(res => {
+                return res.data
+            })
+            .catch(err => {
+                return err
+            })
+
+    }
+
+    async offerinsertfile(data) {
+        return await axios.post(`${environment.URL_API}/offerinsertfile`, data)
             .then(res => {
                 return res.data
             })

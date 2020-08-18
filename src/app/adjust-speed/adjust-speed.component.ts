@@ -159,7 +159,7 @@ export class AdjustSpeedComponent implements OnInit {
 
   download() {
     console.log(this.MyCSV)
-    this.appService.downloadFile(this.MyCSV, 'Result');
+    this.appService.downloadFile(this.MyCSV, 'Result', ['type', 'CPID', 'expirationTime', 'maxMediaRateKbps', 'cpidState', 'status']);
   }
 
 }

@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AppService {
 
-    downloadFile(data, filename = 'data') {
-        let csvData = this.ConvertToCSV(data, ['type', 'CPID', 'expirationTime', 'maxMediaRateKbps', 'cpidState', 'status']);
+    downloadFile(data, filename = 'data', hearder) {
+        let csvData = this.ConvertToCSV(data, hearder);
         let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
         let dwldLink = document.createElement("a");
         let url = URL.createObjectURL(blob);

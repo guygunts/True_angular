@@ -36,6 +36,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MessageModule, KeyFilterModule } from 'primeng/primeng';
 import { ChartModule } from 'primeng/chart';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { FileUploadModule } from 'primeng/fileupload';
 ///////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
@@ -110,7 +111,8 @@ import { SpeedmappingComponent } from './speedmapping/speedmapping.component';
     MessageModule,
     KeyFilterModule,
     ChartModule,
-    InputNumberModule
+    InputNumberModule,
+    FileUploadModule
 
   ],
   providers: [AppService],

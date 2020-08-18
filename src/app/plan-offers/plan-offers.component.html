@@ -1,16 +1,19 @@
 <p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="no" [(selection)]="selectedCars3" >
     <ng-template pTemplate="caption">
         <div >
-            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+            <div class="p-d-flex">
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                         selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
                         <i class="pi pi-search" ></i>
                         <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+            
         </div>
     </ng-template>
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
             <col  style="width: 6em">
-            <col *ngFor="let col of columns" style="width:250px">
+            <col *ngFor="let col of columns" [ngStyle]='col.style'>
             <col  >
         </colgroup>
     </ng-template>
@@ -36,12 +39,11 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="summary" let-rowData>
-        <div style="text-align:left">
             <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
             <button type="button" pButton icon="pi pi-exclamation-circle"  (click)="deltedata(selectedCars3)" label="delete" [disabled]="selectedCars3?.length == 0 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>
-            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>
-        </div>
-    </ng-template> 
+            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>           
+        <p-fileUpload   accept=".csv" customUpload="true"  (uploadHandler)="changeListener($event.files)"  chooseLabel="Browse"></p-fileUpload>
+    </ng-template>  
 </p-table>
 
 
@@ -122,6 +124,7 @@
             <button type="summit" *ngIf="action == 'add'" pButton icon="pi pi-check"  label="Save" [disabled]="!loginForm.valid"></button>
             <button type="summit" *ngIf="action == 'edit'" pButton icon="pi pi-check"  label="edit" [disabled]="!loginForm.valid"></button>
         </div>
+       
     </p-footer>
 </form>
 </p-dialog>
