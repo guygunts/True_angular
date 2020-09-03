@@ -27,15 +27,16 @@ export class PlanOffersComponent {
   formofoptions = []
   constructor(private offers: planoffersService, private appService: AppService, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
-      Payment_Type: [, [Validators.required]],
-      Company: [],
-      promoMessage_th: [],
-      promoMessage_en: [],
-      planName_th: [],
-      planName_en: [],
-      planId: [[Validators.required]],
-      units: [],
-      formOfPayment: [],
+      Payment_Type: [{ value: null }, Validators.required],
+      Company: [{ value: null }],
+      promoMessage_th: [{ value: null }],
+      promoMessage_en: [{ value: null }],
+      planName_th: [{ value: null }],
+      planName_en: [{ value: null }],
+      planId: [{ value: null }, Validators.required],
+      units: [{ value: null }],
+      formOfPayment: [{ value: null }],
+      number_id: [{ value: null }]
     });
 
   }
@@ -53,6 +54,9 @@ export class PlanOffersComponent {
     }, {
       "label": "LOAN",
       "value": "LOAN"
+    }, {
+      "label": "MAIN_BALANCE",
+      "value": "MAIN_BALANCE"
     }]
     this.PaymentTypeoptions = [{
       "label": "Postpaid",
@@ -65,15 +69,11 @@ export class PlanOffersComponent {
       "value": "All"
     }]
     this.offers.offerslist().then(res => {
-      console.log(res)
       this.cols = res.columnname
       this.data = res.data
       res.dropdown.forEach(element => {
         this.planIdoptions.push(element)
       });
-
-
-
       this._selectedColumns = this.cols
     })
 
@@ -96,9 +96,14 @@ export class PlanOffersComponent {
 
   onSubmit() {
     this.loginForm.value['user'] = sessionStorage.getItem('user')
-
+    if (this.loginForm.value.promoMessage_th == '') {
+      this.loginForm.value.promoMessage_th = null
+    }
+    if (this.loginForm.value.promoMessage_en == '') {
+      this.loginForm.value.promoMessage_en == null
+    }
     if (this.loginForm.value.formOfPayment == null) {
-      this.loginForm.value.formOfPayment = 'ADD_TO_BILL'
+      this.loginForm.value.formOfPayment = 'MAIN_BALANCE'
     }
     if (this.loginForm.value.Payment_Type == 'Postpaid') {
       this.loginForm.value.Payment_Type = 0
@@ -119,6 +124,7 @@ export class PlanOffersComponent {
           this.cols = res.columnname
           this.data = res.data
           this._selectedColumns = this.cols
+          window.location.reload();
         })
       })
     } else {
@@ -150,6 +156,7 @@ export class PlanOffersComponent {
   onRowSelect(event) {
     this.dataedit = {}
     this.action = "edit"
+    this.idedit = event[0].Plan_offers_id
     // if (event[0].Payment_Type == 'Postpaid') {
     //   event[0].Payment_Type = 0
     // } else if (event[0].Payment_Type == 'Prepaid') {
@@ -157,7 +164,7 @@ export class PlanOffersComponent {
     // } else if (event[0].Payment_Type == 'All') {
     //   event[0].Payment_Type = 2
     // }
-    delete event[0].no;
+    delete event[0].Plan_offers_id
     this.dataedit = this.cloneCar(event[0]);
 
 
@@ -241,5 +248,15 @@ export class PlanOffersComponent {
 
       }
     }
+  }
+
+
+  dataChanged(data) {
+    this.planIdoptions = []
+    this.offers.offerdropdown(data.value).then(res => {
+      res.dropdown.forEach(element => {
+        this.planIdoptions.push(element)
+      });
+    })
   }
 }

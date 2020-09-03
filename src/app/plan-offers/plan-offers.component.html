@@ -1,11 +1,11 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="no" [(selection)]="selectedCars3" >
+<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="number_id" [(selection)]="selectedCars3" >
     <ng-template pTemplate="caption">
         <div >
             <div class="p-d-flex">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                         selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
                         <i class="pi pi-search" ></i>
-                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        <input type="text" pInputText size="50" placeholder="Search Payment type only" (input)="dt.filter($event.target.value, 'Payment_Type', 'startsWith')" style="width:auto">
             </div>
             
         </div>
@@ -52,13 +52,29 @@
 <p-dialog header="add new offers" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="p-grid ui-fluid" >
+        <div *ngIf="action == 'edit'">
+            <div class="p-col-4">
+                <label for="vin">No</label>
+                <label style="float: right;"> Description:In order number </label>
+            </div>
+            <div class="p-col-8">
+                <p-inputNumber  formControlName="number_id" mode="decimal" ></p-inputNumber>
+            </div>
+        </div>
+
         <div class="p-col-4">
             <label for="vin">Payment_Type*</label>
         </div>
         <div class="p-col-8">
-            <p-dropdown [options]="PaymentTypeoptions" placeholder="Select Payment Type"  formControlName="Payment_Type"></p-dropdown>
+            <p-dropdown [options]="PaymentTypeoptions" placeholder="Select Payment Type"  formControlName="Payment_Type" (onChange)="dataChanged($event)"></p-dropdown>
         </div>
-  
+
+        <div class="p-col-4">
+            <label for="brand">planId</label>
+        </div>
+        <div class="p-col-8">
+        <p-dropdown [options]="planIdoptions"  placeholder="Select Plan ID" formControlName="planId" [filter]="true"   [virtualScroll]="true" [itemSize]="31"></p-dropdown>
+        </div>
         <div class="p-col-4">
             <label for="brand">promoMessage_th</label>
         </div>
@@ -71,12 +87,7 @@
         <div class="p-col-8">
             <input pInputText formControlName="promoMessage_en" />
         </div>
-        <div class="p-col-4">
-            <label for="brand">planId</label>
-        </div>
-        <div class="p-col-8">
-        <p-dropdown [options]="planIdoptions"  placeholder="Select Plan ID" formControlName="planId" [filter]="true"  [disabled]="action == 'edit'" [virtualScroll]="true" [itemSize]="31"></p-dropdown>
-        </div>
+
         <div class="p-col-4">
             <label for="vin">formOfPayment</label>
           </div>
@@ -87,7 +98,7 @@
           </p-dropdown>
     
           </div>
-        <div *ngIf="action == 'edit'">
+        <!-- <div *ngIf="action == 'edit'">
         <div class="p-col-4">
                 <label for="year">Company</label>
         </div>
@@ -114,7 +125,7 @@
             <input pInputText formControlName="units" disabled/>
         </div>
 
-        </div>
+        </div> -->
 </div>
 
 <div class="form-control"></div>
