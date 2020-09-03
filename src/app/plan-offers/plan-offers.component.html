@@ -1,4 +1,4 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="number_id" [(selection)]="selectedCars3" >
+<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" selectionMode="multiple" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="number_id" [(selection)]="selectedCars3"  [metaKeySelection]="true">
     <ng-template pTemplate="caption">
         <div >
             <div class="p-d-flex">
@@ -12,16 +12,16 @@
     </ng-template>
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
-            <col  style="width: 6em">
+            <!-- <col  style="width: 6em"> -->
             <col *ngFor="let col of columns" [ngStyle]='col.style'>
             <col  >
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th >
+        <tr >
+            <!-- <th >
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+            </th> -->
             <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -29,11 +29,11 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr >
-            <td >
+        <tr [pSelectableRow]="rowData">
+            <!-- <td >
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-            </td>
-            <td *ngFor="let col of columns">
+            </td> -->
+            <td *ngFor="let col of columns" >
                 {{rowData[col.field]}}
             </td>
         </tr>

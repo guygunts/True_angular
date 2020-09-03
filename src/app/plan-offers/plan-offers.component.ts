@@ -191,7 +191,7 @@ export class PlanOffersComponent {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        this.offers.offerdelete(data).then(res => {
+        this.offers.offerdelete(data[0]).then(res => {
           Swal.fire({
             icon: 'success',
             text: res.mess,
