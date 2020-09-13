@@ -1,1 +1,132 @@
-<p>notifymapping works!</p>
+<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" selectionMode="multiple" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="id" [(selection)]="selectedCars3"  [metaKeySelection]="true">
+    <ng-template pTemplate="caption">
+        <div >
+            <div class="p-d-flex">
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
+                        <i class="pi pi-search" ></i>
+                        <input type="text" pInputText size="50" placeholder="Search All" (input)="dt.filter($event.target.value, 'contains')" style="width:auto">
+            </div>
+            
+        </div>
+    </ng-template>
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <!-- <col  style="width: 6em"> -->
+            <col *ngFor="let col of columns" [ngStyle]='col.style'>
+            <col  >
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr >
+            <!-- <th >
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th> -->
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <!-- <td >
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td> -->
+            <td *ngFor="let col of columns" >
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+            <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+            <button type="button" pButton icon="pi pi-exclamation-circle"  (click)="deltedata(selectedCars3)" label="delete" [disabled]="selectedCars3?.length == 0 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>
+            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == ''"></button>           
+    </ng-template>  
+</p-table>
+
+
+
+
+<p-dialog header="add new notifynmapping" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="p-grid ui-fluid" >
+        <div class="p-col-4">
+            <label for="brand">Event_id*</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="Event_id" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">moduleName_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="moduleName_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">moduleName_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="moduleName_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">trafficCategories</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="trafficCategories" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">overUsagePolicy</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="overUsagePolicy" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">description_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="description_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">description_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="description_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">coarseBalanceLevel</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="coarseBalanceLevel" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">title_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="title_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">title_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="title_th" />
+        </div>
+        <div class="p-col-4">
+            <label >cus_type*</label>
+        </div>
+        <div class="p-col-8">
+            <p-dropdown [options]="cus_typepeoptions" placeholder="Select Payment Type"  formControlName="cus_type" ></p-dropdown>
+        </div>
+</div>
+
+<div class="form-control"></div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix" style="text-align:right">
+            <button type="reset" pButton icon="pi pi-times"  label="reset"  [disabled]="action == 'edit'"></button>
+            <button type="summit" *ngIf="action == 'add'" pButton icon="pi pi-check"  label="Save" [disabled]="!loginForm.valid"></button>
+            <button type="summit" *ngIf="action == 'edit'" pButton icon="pi pi-check"  label="edit" [disabled]="!loginForm.valid"></button>
+        </div>
+       
+    </p-footer>
+</form>
+</p-dialog>

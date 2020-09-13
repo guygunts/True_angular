@@ -5,7 +5,7 @@
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                         selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
                         <i class="pi pi-search" ></i>
-                        <input type="text" pInputText size="50" placeholder="Search Payment type only" (input)="dt.filter($event.target.value, 'contains')" style="width:auto">
+                        <input type="text" pInputText size="50" placeholder="Search All" (input)="dt.filter($event.target.value, 'contains')" style="width:auto">
             </div>
             
         </div>
@@ -48,10 +48,51 @@
 
 
 
-<p-dialog header="add new offers" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
+<p-dialog header="add new Errorcode" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="p-grid ui-fluid" >
-        
+        <div class="p-col-4">
+            <label for="brand">code*</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="code" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">http_status_code*</label>
+        </div>
+        <div class="p-col-8">
+            <p-inputNumber  formControlName="http_status_code" mode="decimal" ></p-inputNumber>
+        </div>
+        <div class="p-col-4">
+            <label for="brand">cause*</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="cause" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">error_message_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="error_message_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">error_message_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="error_message_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="brand">sbm_error_desc</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="sbm_error_desc"/>
+        </div>
+        <div class="p-col-4">
+            <label >cus_type*</label>
+        </div>
+        <div class="p-col-8">
+            <p-dropdown [options]="cus_typepeoptions" placeholder="Select Payment Type"  formControlName="cus_type" ></p-dropdown>
+        </div>
 </div>
 
 <div class="form-control"></div>
