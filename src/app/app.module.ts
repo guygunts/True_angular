@@ -56,6 +56,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { HomeComponent } from './home/home.component';
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import { SpeedmappingComponent } from './speedmapping/speedmapping.component';
+import { ErrorcodeComponent } from './errorcode/errorcode.component';
+import { NotifymappingComponent } from './notifymapping/notifymapping.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { SpeedmappingComponent } from './speedmapping/speedmapping.component';
     HomeComponent,
     UsermanagementComponent,
     SpeedmappingComponent,
+    ErrorcodeComponent,
+    NotifymappingComponent,
 
   ],
   imports: [
