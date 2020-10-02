@@ -38,7 +38,7 @@ export class planoffersService {
     }
 
     async offerinsert(data) {
-        return await axios.post(`${environment.URL_API}/planofferinsert`, data)
+        return await axios.post(`/planofferinsert`, data)
             .then(res => {
                 return res.data
             })
@@ -49,7 +49,7 @@ export class planoffersService {
     }
 
     async offeredit(data) {
-        return await axios.post(`${environment.URL_API}/planofferedit`, data)
+        return await axios.post(`/planofferedit`, data)
             .then(res => {
                 return res.data
             })
@@ -60,7 +60,7 @@ export class planoffersService {
     }
 
     async offerdelete(data) {
-        return await axios.post(`${environment.URL_API}/planofferdelete`, data)
+        return await axios.post(`/planofferdelete`, data)
             .then(res => {
                 return res.data
             })
@@ -71,7 +71,7 @@ export class planoffersService {
     }
 
     async offerinsertfile(data) {
-        return await axios.post(`${environment.URL_API}/offerinsertfile`, data)
+        return await axios.post(`/offerinsertfile`, data)
             .then(res => {
                 return res.data
             })
@@ -92,7 +92,7 @@ export class planoffersService {
         let datajson = {
             "cus_type": data
         }
-        return await axios.post(`${environment.URL_API}/planofferdropdown`, datajson)
+        return await axios.post(`/planofferdropdown`, datajson)
             .then(res => {
                 return res.data
             })

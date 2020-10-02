@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
   object: object
   async ngOnInit() {
     this.user = sessionStorage.getItem('user')
-    await axios.get(`${environment.URL_API}/menu?user=${this.user}`)
+    await axios.get(`/menu?user=${this.user}`)
       .then(res => {
         if (res.data.code == 200) {
           for (let i = 0; i < res.data.menu.length; i++) {
@@ -28,7 +28,6 @@ export class SidebarComponent implements OnInit {
             }
             this.object = { ...this.object, [i]: res.data.menu[i] }
           }
-          console.log(this.object)
         }
       })
       .catch(err => {

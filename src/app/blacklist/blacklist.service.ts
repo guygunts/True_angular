@@ -7,7 +7,7 @@ import axios from "axios";
 export class BlacklistService {
 
     async Blacklistlist() {
-        return axios.post(`${environment.URL_API}/Blacklistlist`)
+        return axios.post(`/Blacklistlist`)
             .then(res => {
                 return res
             })
@@ -17,7 +17,7 @@ export class BlacklistService {
     }
 
     async blacklistadd(data) {
-        return await axios.post(`${environment.URL_API}/blacklistadd`, data)
+        return await axios.post(`/blacklistadd`, data)
             .then(res => {
                 return res
             })
@@ -27,7 +27,7 @@ export class BlacklistService {
     }
 
     async blacklistdelete(data) {
-        return axios.post(`${environment.URL_API}/blacklistdelete`, data).then(res => {
+        return axios.post(`/blacklistdelete`, data).then(res => {
             return res
         }).catch(err => {
             return err
@@ -35,7 +35,7 @@ export class BlacklistService {
     }
 
     async blacklist(data) {
-        return await axios.post(`${environment.URL_API}/blacklist`, data)
+        return await axios.post(`/blacklist`, data)
             .then(res => {
                 return res
             })
@@ -45,7 +45,7 @@ export class BlacklistService {
     }
 
     async Blacklistfiledelete(data) {
-        return axios.post(`${environment.URL_API}/Blacklistfiledelete`, data).then(res => {
+        return axios.post(`/Blacklistfiledelete`, data).then(res => {
             return res
         }).catch(err => {
             return err
@@ -53,7 +53,7 @@ export class BlacklistService {
     }
 
     async Blacklistfile(data) {
-        await axios.post(`${environment.URL_API}/Blacklistfile`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+        await axios.post(`/Blacklistfile`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(res => {
                 return res
             })
@@ -63,7 +63,7 @@ export class BlacklistService {
     }
 
     async Blacklistdownload(data) {
-        return await axios.post(`${environment.URL_API}/Blacklistdownload`, data)
+        return await axios.post(`/Blacklistdownload`, data)
             .then(res => {
                 return res
             })

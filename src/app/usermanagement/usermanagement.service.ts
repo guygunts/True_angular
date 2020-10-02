@@ -12,7 +12,7 @@ export class UsermanagementService {
 
 
     async usermanagementgetdata(req) {
-        return await axios.get(`${environment.URL_API}/getuser?user_id=${req.user_id}`)
+        return await axios.get(`/getuser/?user_id=${req.user_id}`)
             .then(res => {
                 return res.data
             })
@@ -23,7 +23,7 @@ export class UsermanagementService {
     }
 
     async usermanagementlist() {
-        return await axios.get(`${environment.URL_API}/userlist`)
+        return await axios.get(`/userlist`)
             .then(res => {
                 return res.data
             })
@@ -34,7 +34,7 @@ export class UsermanagementService {
     }
 
     async usermanagementinsert(data) {
-        return await axios.post(`${environment.URL_API}/userinsert`, data)
+        return await axios.post(`/userinsert`, data)
             .then(res => {
                 return res.data
             })
@@ -45,7 +45,7 @@ export class UsermanagementService {
     }
 
     async usermanagementedit(data) {
-        return await axios.post(`${environment.URL_API}/useredit`, data)
+        return await axios.post(`/useredit`, data)
             .then(res => {
                 return res.data
             })
@@ -56,7 +56,7 @@ export class UsermanagementService {
     }
 
     async usermanagementdelete(data) {
-        return await axios.post(`${environment.URL_API}/userdelete`, data)
+        return await axios.post(`/userdelete`, data)
             .then(res => {
                 return res.data
             })

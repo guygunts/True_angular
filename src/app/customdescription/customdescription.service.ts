@@ -1,20 +1,17 @@
-import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import axios from "axios";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
     providedIn: 'root'
 })
-export class errorcodeService {
+export class customdescriptionService {
     constructor(private http: HttpClient) {
 
     }
 
-    async errorcodeslist() {
-
-        return await axios.get(`/errorcodelist`)
+    async customdescriptionlist(req) {
+        return await axios.get(`/${req.table}`)
             .then(res => {
-
                 for (let i = 0; i < res.data.data.length; i++) {
                     if (res.data.data[i].cus_type == 0) {
                         res.data.data[i].cus_type = 'Postpaid'
@@ -37,18 +34,7 @@ export class errorcodeService {
             })
     }
 
-    async errorcodeinsert(data) {
-        return await axios.post(`/errorcodeinsert`, data)
-            .then(res => {
-                return res.data
-            })
-            .catch(err => {
-                return err
-            })
-
-    }
-
-    async errorcodeedit(data) {
+    async customdescriptionedit(data) {
         return await axios.post(`/errorcodeedit`, data)
             .then(res => {
                 return res.data
@@ -59,14 +45,4 @@ export class errorcodeService {
 
     }
 
-    async errorcodedelete(data) {
-        return await axios.post(`/errorcodedelete`, data)
-            .then(res => {
-                return res.data
-            })
-            .catch(err => {
-                return err
-            })
-
-    }
 }

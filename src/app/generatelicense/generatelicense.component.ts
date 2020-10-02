@@ -8,7 +8,7 @@ import { GeneratelicenseService } from './generatelicense.service';
   styleUrls: ['./generatelicense.component.scss']
 })
 export class GeneratelicenseComponent implements OnInit {
-  user
+  user = sessionStorage.getItem('user')
   loginForm: FormGroup;
   loginFormfps: FormGroup;
   generate
@@ -17,6 +17,7 @@ export class GeneratelicenseComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private service: GeneratelicenseService) { }
 
   ngOnInit() {
+    this.user
     this.service.license().then(res => {
       this.generate = res.data.license
       this.amounttps = res.data.tps

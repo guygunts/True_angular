@@ -12,7 +12,7 @@ export class notifymappingService {
 
     async notifymappingslist() {
 
-        return await axios.get(`${environment.URL_API}/notifymappinglist`)
+        return await axios.get(`/notifymappinglist`)
             .then(res => {
 
                 for (let i = 0; i < res.data.data.length; i++) {
@@ -38,7 +38,7 @@ export class notifymappingService {
     }
 
     async notifymappinginsert(data) {
-        return await axios.post(`${environment.URL_API}/Notifymappinginsert`, data)
+        return await axios.post(`/Notifymappinginsert`, data)
             .then(res => {
                 return res.data
             })
@@ -49,7 +49,7 @@ export class notifymappingService {
     }
 
     async notifymappingedit(data) {
-        return await axios.post(`${environment.URL_API}/notifymappingedit`, data)
+        return await axios.post(`/notifymappingedit`, data)
             .then(res => {
                 return res.data
             })
@@ -60,7 +60,7 @@ export class notifymappingService {
     }
 
     async notifymappingdelete(data) {
-        return await axios.post(`${environment.URL_API}/Notifymappingdelete`, data)
+        return await axios.post(`/Notifymappingdelete`, data)
             .then(res => {
                 return res.data
             })

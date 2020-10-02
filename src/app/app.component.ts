@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   async summit() {
     // this.router.navigate(['/menu'])
 
-    await axios.post(`${environment.URL_API}/login`, this.profileForm.value)
+    await axios.post(`/login`, this.profileForm.value)
       .then(res => {
 
         if (res.data.code == 200) {

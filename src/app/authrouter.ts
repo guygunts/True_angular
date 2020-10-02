@@ -23,7 +23,7 @@ export class authpaths implements CanActivate {
         if (sessionStorage.getItem('user') == null) {
             return false
         }
-        await axios.post(`${environment.URL_API}/auth`, data)
+        await axios.post(`/auth`, data)
             .then(res => {
                 this.status = res.data.active
             })

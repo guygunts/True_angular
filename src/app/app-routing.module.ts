@@ -10,6 +10,7 @@ import { UsermanagementComponent } from './usermanagement/usermanagement.compone
 import { SpeedmappingComponent } from './speedmapping/speedmapping.component'
 import { ErrorcodeComponent } from './errorcode/errorcode.component'
 import { NotifymappingComponent } from './notifymapping/notifymapping.component'
+import { CustomdescriptionComponent } from './customdescription/customdescription.component'
 import { authpaths } from './authrouter';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'speedmap', component: SpeedmappingComponent, canActivate: [authpaths] },
   { path: 'errorcode', component: ErrorcodeComponent, canActivate: [authpaths] },
   { path: 'notify', component: NotifymappingComponent, canActivate: [authpaths] },
+  { path: 'customdescription', component: CustomdescriptionComponent, canActivate: [authpaths] },
   { path: 'home', component: HomeComponent, },
   { path: '**', component: NotfoundComponent },
 

@@ -9,7 +9,7 @@ export class AdjustSpeedService {
     constructor() { }
 
     async adjustspeed(data) {
-        return await axios.post(`${environment.URL_API}/adjustspeed`, data)
+        return await axios.post(`/adjustspeed`, data)
             .then(res => {
                 return res.data
             })
@@ -19,7 +19,7 @@ export class AdjustSpeedService {
     }
 
     async uploadadjustspeed(data) {
-        return await axios.post(`${environment.URL_API}/uploadadjustspeed`, data)
+        return await axios.post(`/uploadadjustspeed`, data)
             .then(res => {
                 return res.data
             })

@@ -1,14 +1,14 @@
-set  ip and another config in src/environments  and then environment.ts
+set  ip  config in src/proxy.conf.js  
 ####
 
 when deploy project
 
-command line : ng --host="host your server"  --port="port your server"
+command line : ng serve --host="host your server"  --port="port your server"
 
 
 
 fist install project(angular suport 8)
-install angular cli. 
+install angular cli Last Version. 
 install node last version 
 
 dont update version angular to last version.

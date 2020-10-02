@@ -8,14 +8,14 @@ export class GeneratelicenseService {
     constructor() { }
 
     async license() {
-        return axios.get(`${environment.URL_API}/license`)
+        return axios.get(`/license`)
             .then(res => {
                 return res
             })
     }
 
     async updatestastus(data) {
-        return axios.post(`${environment.URL_API}/updatestastus`, data)
+        return axios.post(`/updatestastus`, data)
             .then(res => {
                 return res
             })
@@ -25,7 +25,7 @@ export class GeneratelicenseService {
     }
 
     async updatelicense(data) {
-        return await axios.post(`${environment.URL_API}/updatelicense`, data)
+        return await axios.post(`/updatelicense`, data)
             .then(res => {
                 return res
             })
@@ -35,7 +35,7 @@ export class GeneratelicenseService {
     }
 
     async generatelicense(data) {
-        return await axios.post(`${environment.URL_API}/generatelicense`, data)
+        return await axios.post(`/generatelicense`, data)
             .then(res => {
                 return res
             })

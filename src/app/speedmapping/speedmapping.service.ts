@@ -11,7 +11,7 @@ export class speedmapingService {
     }
 
     async maxrategetdata(req) {
-        return await axios.get(`${environment.URL_API}/getmaxrate?id=${req.id}`)
+        return await axios.get(`/getmaxrate?id=${req.id}`)
             .then(res => {
                 return res.data
             })
@@ -23,7 +23,7 @@ export class speedmapingService {
 
     async maxratelist() {
 
-        return await axios.get(`${environment.URL_API}/maxratelist`)
+        return await axios.get(`/maxratelist`)
             .then(res => {
                 return res.data
             })
@@ -33,7 +33,7 @@ export class speedmapingService {
     }
 
     async maxrateinsert(data) {
-        return await axios.post(`${environment.URL_API}/maxrateinsert`, data)
+        return await axios.post(`/maxrateinsert`, data)
             .then(res => {
                 return res.data
             })
@@ -44,7 +44,7 @@ export class speedmapingService {
     }
 
     async maxrateedit(data) {
-        return await axios.post(`${environment.URL_API}/maxrateedit`, data)
+        return await axios.post(`/maxrateedit`, data)
             .then(res => {
                 return res.data
             })
@@ -55,7 +55,7 @@ export class speedmapingService {
     }
 
     async maxratedelete(data) {
-        return await axios.post(`${environment.URL_API}/maxratedelete`, data)
+        return await axios.post(`/maxratedelete`, data)
             .then(res => {
                 return res.data
             })

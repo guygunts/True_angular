@@ -58,6 +58,7 @@ import { UsermanagementComponent } from './usermanagement/usermanagement.compone
 import { SpeedmappingComponent } from './speedmapping/speedmapping.component';
 import { ErrorcodeComponent } from './errorcode/errorcode.component';
 import { NotifymappingComponent } from './notifymapping/notifymapping.component';
+import { CustomdescriptionComponent } from './customdescription/customdescription.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { NotifymappingComponent } from './notifymapping/notifymapping.component'
     SpeedmappingComponent,
     ErrorcodeComponent,
     NotifymappingComponent,
+    CustomdescriptionComponent,
 
   ],
   imports: [
