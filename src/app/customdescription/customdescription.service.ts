@@ -34,8 +34,9 @@ export class customdescriptionService {
             })
     }
 
-    async customdescriptionedit(data) {
-        return await axios.post(`/errorcodeedit`, data)
+    async customdescriptionedit(tableedit,data) {
+        console.log(tableedit)
+        return await axios.post(`/${tableedit}`, data)
             .then(res => {
                 return res.data
             })

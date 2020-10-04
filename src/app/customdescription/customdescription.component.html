@@ -1,4 +1,4 @@
-<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" selectionMode="multiple" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="code" [(selection)]="selectedCars3"  [metaKeySelection]="true" >
+<p-table #dt [columns]="selectedColumns" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [resizableColumns]="true" [reorderableColumns]="true" selectionMode="multiple" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" dataKey="code" [(selection)]="selectedCars3"  [metaKeySelection]="true" [loading]="loading">
     <ng-template pTemplate="caption">
         <div >
             <div class="p-d-flex">
@@ -33,23 +33,279 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="summary" let-rowData>
-            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == '' "></button>           
+            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3,selectedtable)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == '' "></button>           
     </ng-template>  
 </p-table>
 
 
 
 
-<p-dialog header="add new Errorcode" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
-    <form [formGroup]="" (ngSubmit)="onSubmit()">
+<p-dialog header="Edit Packagelist" [(visible)]="displayDialogpackagelist" [modal]="true"  [style]="{width: '650px'}" >
+    <form [formGroup]="loginFormpackagelist" (ngSubmit)="onSubmit(selectedtable)">
     <div class="p-grid ui-fluid" >
-
+        <div class="p-col-4">
+            <label for="code">code</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="code" />
+        </div>
+        <div class="p-col-4">
+            <label for="tss_description_th">tss_description_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="tss_description_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="tss_description_en">tss_description_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="tss_description_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="module_name_th">module_name_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="module_name_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="module_name_en">module_name_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="module_name_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="custom_description_th">custom_description_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="custom_description_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="custom_description_en">custom_description_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="custom_description_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="validity">validity</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="validity" />
+        </div>
+        <div class="p-col-4">
+            <label for="package_type">package_type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="package_type" />
+        </div>
+        <div class="p-col-4">
+            <label for="charge_type">charge_type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="charge_type" />
+        </div>
+        <div class="p-col-4">
+            <label for="tss_display_type">tss_display_type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="tss_display_type" />
+        </div>
+        <div class="p-col-4">
+            <label for="sort_id">sort_id</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="sort_id" />
+        </div>
+        <div class="p-col-4">
+            <label for="price">price</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="price" />
+        </div>
+        <div class="p-col-4">
+            <label for="company">company</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="company" />
+        </div>
+        <div class="p-col-4">
+            <label >cus_type*</label>
+        </div>
+        <div class="p-col-8">
+            <p-dropdown [options]="cus_typepeoptions" placeholder="Select Payment Type"  formControlName="cus_type"></p-dropdown>
+        </div>
 </div>
-
 <div class="form-control"></div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix" style="text-align:right">
-            <!-- <button type="summit"  pButton icon="pi pi-check"  label="edit" [disabled]="!loginForm.valid"></button> -->
+            <button type="summit"  pButton icon="pi pi-check"  label="edit" [disabled]="!loginFormpackagelist.valid"></button>
+        </div>
+       
+    </p-footer>
+</form>
+</p-dialog>
+
+
+<p-dialog header="Edit priceplanlist" [(visible)]="displayDialogpriceplanlist" [modal]="true"  [style]="{width: '650px'}" >
+    <form [formGroup]="loginFormpriceplanlist" (ngSubmit)="onSubmit(selectedtable)">
+    <div class="p-grid ui-fluid" >
+        <div class="p-col-4">
+            <label for="code">code</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="code" />
+        </div>
+        <div class="p-col-4">
+            <label for="description_th">description_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="description_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="description_en">description_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="description_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="module_name_th">module_name_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="module_name_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="module_name_en">module_name_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="module_name_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="desc_th">desc_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="desc_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="desc_en">desc_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="desc_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="custom_description_th">custom_description_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="custom_description_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="custom_description_en">custom_description_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="custom_description_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="start_dt">start_dt</label>
+        </div>
+        <div class="p-col-8">
+            <p-calendar formControlName="start_dt"  [touchUI]="true" [readonlyInput]="true" [minDate]="today" [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>
+        </div>
+        <div class="p-col-4">
+            <label for="end_dt">end_dt</label>
+        </div>
+        <div class="p-col-8">
+            <p-calendar formControlName="end_dt"  [touchUI]="true" [readonlyInput]="true" [minDate]="today" [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>
+        </div>
+        <div class="p-col-4">
+            <label for="offer_type">offer_type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="offer_type" />
+        </div>
+        <div class="p-col-4">
+            <label for="cost_type">cost_type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="cost_type" />
+        </div>
+        <div class="p-col-4">
+            <label for="price">price</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="price" />
+        </div>
+        <div class="p-col-4">
+            <label for="company">company</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="company" />
+        </div>
+        <div class="p-col-4">
+            <label >cus_type</label>
+        </div>
+        <div class="p-col-8">
+            <p-dropdown [options]="cus_typepeoptions" placeholder="Select Payment Type"  formControlName="cus_type"></p-dropdown>
+        </div>
+</div>
+<div class="form-control"></div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix" style="text-align:right">
+            <button type="summit"  pButton icon="pi pi-check"  label="edit" [disabled]="!loginFormpriceplanlist.valid"></button>
+        </div>
+       
+    </p-footer>
+</form>
+</p-dialog>
+
+
+<p-dialog header="Edit servicetype" [(visible)]="displayDialogservicelist" [modal]="true"  [style]="{width: '650px'}" >
+    <form [formGroup]="loginFormservicelist" (ngSubmit)="onSubmit(selectedtable)">
+    <div class="p-grid ui-fluid" >
+        <div class="p-col-4">
+            <label for="service_type">service_type</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="service_type" />
+        </div>
+        <div class="p-col-4">
+            <label for="traffic_category">traffic_category</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="traffic_category" />
+        </div>
+        <div class="p-col-4">
+            <label for="desc_th">desc_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="desc_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="desc_en">desc_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="desc_en" />
+        </div>
+        <div class="p-col-4">
+            <label for="custom_traffic_category_th">custom_traffic_category_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="custom_traffic_category_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="custom_traffic_category_en">custom_traffic_category_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="custom_traffic_category_en" />
+        </div>
+        <div class="p-col-4">
+            <label >cus_type</label>
+        </div>
+        <div class="p-col-8">
+            <p-dropdown [options]="cus_typepeoptions" placeholder="Select Payment Type"  formControlName="cus_type"></p-dropdown>
+        </div>
+</div>
+<div class="form-control"></div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix" style="text-align:right">
+            <button type="summit"  pButton icon="pi pi-check"  label="edit" [disabled]="!loginFormpriceplanlist.valid"></button>
         </div>
        
     </p-footer>
