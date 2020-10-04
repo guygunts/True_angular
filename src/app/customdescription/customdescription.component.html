@@ -33,7 +33,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="summary" let-rowData>
-            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit"></button>           
+            <button type="button" pButton icon="pi pi-user-edit"  (click)="onRowSelect(selectedCars3)" label="edit" [disabled]="selectedCars3?.length > 1 || selectedCars3?.length == undefined || selectedCars3?.length == '' "></button>           
     </ng-template>  
 </p-table>
 
