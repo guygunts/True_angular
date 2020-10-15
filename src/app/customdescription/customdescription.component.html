@@ -3,8 +3,8 @@
         <div >
             <div class="p-d-flex">
                 <p-dropdown [options]="table" [(ngModel)]="selectedtable" (ngModelChange)="changedata(this,dt)"></p-dropdown>
-                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect>
+                <!-- <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns" style="text-align:left"></p-multiSelect> -->
                         <i class="pi pi-search" ></i>
                         <input type="text" pInputText id="filter" size="50" placeholder="Search All" (input)="dt.filter($event.target.value, filter)" style="width:auto">
             </div>
@@ -206,13 +206,13 @@
             <label for="start_dt">start_dt</label>
         </div>
         <div class="p-col-8">
-            <p-calendar formControlName="start_dt"  [touchUI]="true" [readonlyInput]="true" [minDate]="today" [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>
+            <p-calendar formControlName="start_dt"  [touchUI]="true" [readonlyInput]="true"  [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>
         </div>
         <div class="p-col-4">
             <label for="end_dt">end_dt</label>
         </div>
         <div class="p-col-8">
-            <p-calendar formControlName="end_dt"  [touchUI]="true" [readonlyInput]="true" [minDate]="today" [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>
+            <p-calendar formControlName="end_dt"  [touchUI]="true" [readonlyInput]="true"  [showTime]="true" [hourFormat]="24"  [showButtonBar]="true" [yearNavigator]="true" yearRange="1900:2050" [monthNavigator]="true"  [showSeconds]="true" dateFormat="yy/mm/dd"></p-calendar>
         </div>
         <div class="p-col-4">
             <label for="offer_type">offer_type</label>

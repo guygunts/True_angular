@@ -36,7 +36,9 @@ export class PlanOffersComponent {
       planId: [{ value: null }, Validators.required],
       units: [{ value: null }],
       formOfPayment: [{ value: null }],
-      number_id: [{ value: null }]
+      number_id: [{ value: null }],
+      planDescription_th: [{ value: null }],
+      planDescription_en: [{ value: null }]
     });
 
   }
@@ -165,10 +167,17 @@ export class PlanOffersComponent {
     //   event[0].Payment_Type = 2
     // }
     delete event[0].Plan_offers_id
-    this.dataedit = this.cloneCar(event[0]);
+    //this.dataedit = this.cloneCar(event[0]);
 
 
-    this.loginForm.setValue(this.dataedit)
+    this.loginForm.setValue(event[0])
+    // this.loginForm.controls['number_id'].disable();
+    //.loginForm.controls['Company'].disable();
+    this.loginForm.controls['formOfPayment'].disable();
+    this.loginForm.controls['Payment_Type'].disable();
+    this.loginForm.controls['planDescription_en'].disable();
+    this.loginForm.controls['planDescription_th'].disable();
+    this.loginForm.controls['planId'].disable();
     this.displayDialog = true;
   }
 

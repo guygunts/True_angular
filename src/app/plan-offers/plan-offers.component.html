@@ -87,7 +87,20 @@
         <div class="p-col-8">
             <input pInputText formControlName="promoMessage_en" />
         </div>
-
+        <div *ngIf="action == 'edit'">
+        <div class="p-col-4">
+            <label for="brand">planDescription_th</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="planDescription_th" />
+        </div>
+        <div class="p-col-4">
+            <label for="color">planDescription_en</label>
+        </div>
+        <div class="p-col-8">
+            <input pInputText formControlName="planDescription_en" />
+        </div>
+        </div>   
         <div class="p-col-4">
             <label for="vin">formOfPayment</label>
           </div>
