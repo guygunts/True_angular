@@ -26,8 +26,8 @@ export class CustomdescriptionComponent implements OnInit {
   cus_typepeoptions = []
   filter
   loading: boolean;
-  disable=true
-  constructor(private custom: customdescriptionService,private formBuilder: FormBuilder) {
+  disable = true
+  constructor(private custom: customdescriptionService, private formBuilder: FormBuilder) {
     this.table = [
       { label: 'Select Table', value: null },
       { label: 'TB_M_Package', value: { table: 'packagelist', edit: 'packagedit', filter: 'code' } },
@@ -48,50 +48,50 @@ export class CustomdescriptionComponent implements OnInit {
       "value": "All"
     }]
     this.loginFormpackagelist = this.formBuilder.group({
-      code: new FormControl({value: '', disabled: true}),
-      tss_description_th: new FormControl({value: '', disabled: true}),
-      tss_description_en: new FormControl({value: '', disabled: true}),
-      module_name_th: new FormControl({value: ''}),
-      module_name_en: new FormControl({value: ''}),
-      custom_description_th: new FormControl({value: ''}),
-      custom_description_en: new FormControl({value: ''}),
-      validity: new FormControl({value: '', disabled: true}),
-      package_type: new FormControl({value: '', disabled: true}),
-      charge_type: new FormControl({value: '', disabled: true}),
-      tss_display_type: new FormControl({value: '', disabled: true}),
-      sort_id: new FormControl({value: '', disabled: true}),
-      price: new FormControl({value: '', disabled: true}),
-      company: new FormControl({value: '', disabled: true}),
-      cus_type: new FormControl({value: '', disabled: true}),
+      code: new FormControl({ value: '', disabled: true }),
+      tss_description_th: new FormControl({ value: '', disabled: true }),
+      tss_description_en: new FormControl({ value: '', disabled: true }),
+      module_name_th: new FormControl({ value: '' }),
+      module_name_en: new FormControl({ value: '' }),
+      custom_description_th: new FormControl({ value: '' }),
+      custom_description_en: new FormControl({ value: '' }),
+      validity: new FormControl({ value: '', disabled: true }),
+      package_type: new FormControl({ value: '', disabled: true }),
+      charge_type: new FormControl({ value: '', disabled: true }),
+      tss_display_type: new FormControl({ value: '', disabled: true }),
+      sort_id: new FormControl({ value: '', disabled: true }),
+      price: new FormControl({ value: '', disabled: true }),
+      company: new FormControl({ value: '', disabled: true }),
+      cus_type: new FormControl({ value: '', disabled: true }),
     });
-  this.loginFormpriceplanlist= this.formBuilder.group({
-    code: new FormControl({value: '', disabled: true}),
-    description_th: new FormControl({value: '', disabled: true}),
-    description_en: new FormControl({value: '', disabled: true}),
-    module_name_th: new FormControl({value: ''}),
-    module_name_en: new FormControl({value: ''}),
-    desc_th: new FormControl({value: ''}),
-    desc_en: new FormControl({value: ''}),
-    custom_description_th: new FormControl({value: '', disabled: true}),
-    custom_description_en: new FormControl({value: '', disabled: true}),
-    start_dt: new FormControl({value: '', disabled: true}),
-    end_dt: new FormControl({value: '', disabled: true}),
-    offer_type: new FormControl({value: '', disabled: true}),
-    cost_type: new FormControl({value: '', disabled: true}),
-    price: new FormControl({value: '', disabled: true}),
-    company: new FormControl({value: '', disabled: true}),
-    cus_type: new FormControl({value: '', disabled: true}),
-  })
-  this.loginFormservicelist= this.formBuilder.group({
-    code: new FormControl({value: '', disabled: true}),
-    service_type: new FormControl({value: '', disabled: true}),
-    traffic_category: new FormControl({value: '', disabled: true}),
-    desc_th: new FormControl({value: ''}),
-    desc_en: new FormControl({value: ''}),
-    custom_traffic_category_th: new FormControl({value: ''}),
-    custom_traffic_category_en: new FormControl({value: ''}),
-    cus_type: new FormControl({value: '', disabled: true}),
-  })
+    this.loginFormpriceplanlist = this.formBuilder.group({
+      code: new FormControl({ value: '', disabled: true }),
+      description_th: new FormControl({ value: '', disabled: true }),
+      description_en: new FormControl({ value: '', disabled: true }),
+      module_name_th: new FormControl({ value: '' }),
+      module_name_en: new FormControl({ value: '' }),
+      desc_th: new FormControl({ value: '' }),
+      desc_en: new FormControl({ value: '' }),
+      custom_description_th: new FormControl({ value: '', }),
+      custom_description_en: new FormControl({ value: '', }),
+      start_dt: new FormControl({ value: '', disabled: true }),
+      end_dt: new FormControl({ value: '', disabled: true }),
+      offer_type: new FormControl({ value: '', disabled: true }),
+      cost_type: new FormControl({ value: '', disabled: true }),
+      price: new FormControl({ value: '', disabled: true }),
+      company: new FormControl({ value: '', disabled: true }),
+      cus_type: new FormControl({ value: '', disabled: true }),
+    })
+    this.loginFormservicelist = this.formBuilder.group({
+      code: new FormControl({ value: '', disabled: true }),
+      service_type: new FormControl({ value: '', disabled: true }),
+      traffic_category: new FormControl({ value: '', disabled: true }),
+      desc_th: new FormControl({ value: '' }),
+      desc_en: new FormControl({ value: '' }),
+      custom_traffic_category_th: new FormControl({ value: '' }),
+      custom_traffic_category_en: new FormControl({ value: '' }),
+      cus_type: new FormControl({ value: '', disabled: true }),
+    })
   }
   @Input() get selectedColumns(): any[] {
 
@@ -100,7 +100,7 @@ export class CustomdescriptionComponent implements OnInit {
 
   changedata(data, table) {
     table.filters = []
-    this.selectedCars3 =[]
+    this.selectedCars3 = []
     this.loading = true;
     if (table.filteredValue) {
       delete table.filteredValue
@@ -110,6 +110,7 @@ export class CustomdescriptionComponent implements OnInit {
       this.cols = []
       this.data = []
       this._selectedColumns = this.cols
+      this.loading = false;
       return false
     }
     (<HTMLInputElement>document.getElementById("filter")).value = ''
@@ -122,28 +123,28 @@ export class CustomdescriptionComponent implements OnInit {
     })
   }
 
-  onRowSelect(event,data) {
+  onRowSelect(event, data) {
     this.dataedit = {}
-    if(data.table == "packagelist"){
+    if (data.table == "packagelist") {
       this.idedit = event[0].code
       this.dataedit = this.clonedata(event[0]);
-    this.loginFormpackagelist.setValue(this.dataedit)
-    this.displayDialogpackagelist= true;
-    }else if(data.table =="priceplanlist"){
-    this.idedit = event[0].code
-    const start_dt=new Date(event[0].start_dt);
-    const end_dt=new Date(event[0].end_dt);
-    event[0].start_dt=start_dt
-    event[0].end_dt=end_dt
-    this.dataedit = this.clonedata(event[0]);
-    this.loginFormpriceplanlist.setValue(this.dataedit)
-    this.displayDialogpriceplanlist= true;
-    }else if(data.table =="servicelist"){
-    this.idedit = event[0].code
-    delete event[0].id
-    this.dataedit = this.clonedata(event[0]);
-    this.loginFormservicelist.setValue(this.dataedit)
-    this.displayDialogservicelist= true;
+      this.loginFormpackagelist.setValue(this.dataedit)
+      this.displayDialogpackagelist = true;
+    } else if (data.table == "priceplanlist") {
+      this.idedit = event[0].code
+      const start_dt = new Date(event[0].start_dt);
+      const end_dt = new Date(event[0].end_dt);
+      event[0].start_dt = start_dt
+      event[0].end_dt = end_dt
+      this.dataedit = this.clonedata(event[0]);
+      this.loginFormpriceplanlist.setValue(this.dataedit)
+      this.displayDialogpriceplanlist = true;
+    } else if (data.table == "servicelist") {
+      this.idedit = event[0].code
+      delete event[0].id
+      this.dataedit = this.clonedata(event[0]);
+      this.loginFormservicelist.setValue(this.dataedit)
+      this.displayDialogservicelist = true;
     }
   }
 
@@ -157,27 +158,27 @@ export class CustomdescriptionComponent implements OnInit {
 
   onSubmit(data) {
     let datajson
-    if(data.table == "packagelist"){
-      this.loginFormpackagelist.value['code']=this.idedit
+    if (data.table == "packagelist") {
+      this.loginFormpackagelist.value['code'] = this.idedit
       this.loginFormpackagelist.value['user'] = sessionStorage.getItem('user')
-      datajson=this.loginFormpackagelist.value
-    }else if(data.table =="priceplanlist"){
-      this.loginFormpriceplanlist.value['code']=this.idedit
+      datajson = this.loginFormpackagelist.value
+    } else if (data.table == "priceplanlist") {
+      this.loginFormpriceplanlist.value['code'] = this.idedit
       this.loginFormpriceplanlist.value['user'] = sessionStorage.getItem('user')
-      datajson=this.loginFormpriceplanlist.value
-    }else if(data.table =="servicelist"){
-      this.loginFormservicelist.value['code']=this.idedit
+      datajson = this.loginFormpriceplanlist.value
+    } else if (data.table == "servicelist") {
+      this.loginFormservicelist.value['code'] = this.idedit
       this.loginFormservicelist.value['user'] = sessionStorage.getItem('user')
-      datajson=this.loginFormservicelist.value
+      datajson = this.loginFormservicelist.value
     }
-    this.custom.customdescriptionedit(data.edit,datajson).then(res => {
+    this.custom.customdescriptionedit(data.edit, datajson).then(res => {
       this.custom.customdescriptionlist(data).then(res => {
-        if(data.table == "packagelist"){
-          this.displayDialogpackagelist=false
-        }else if(data.table =="priceplanlist"){
-          this.displayDialogpriceplanlist=false
-        }else if(data.table =="servicelist"){
-          this.displayDialogservicelist=false
+        if (data.table == "packagelist") {
+          this.displayDialogpackagelist = false
+        } else if (data.table == "priceplanlist") {
+          this.displayDialogpriceplanlist = false
+        } else if (data.table == "servicelist") {
+          this.displayDialogservicelist = false
         }
         this.selectedCars3 = []
         this.cols = res.columnname
@@ -188,6 +189,7 @@ export class CustomdescriptionComponent implements OnInit {
         icon: 'success',
         text: "Success",
       })
+      setInterval(function () { Swal.close() }, 1000)
     })
   }
 }
