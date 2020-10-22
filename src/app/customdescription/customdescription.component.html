@@ -40,7 +40,7 @@
 
 
 
-<p-dialog header="Edit Packagelist" [(visible)]="displayDialogpackagelist" [modal]="true"  [style]="{width: '650px'}" >
+<p-dialog header="Edit Packagelist" [(visible)]="displayDialogpackagelist" [modal]="true"  [style]="{width: '650px'}" [baseZIndex]="10000">
     <form [formGroup]="loginFormpackagelist" (ngSubmit)="onSubmit(selectedtable)">
     <div class="p-grid ui-fluid" >
         <div class="p-col-4">
@@ -145,7 +145,7 @@
 </p-dialog>
 
 
-<p-dialog header="Edit priceplanlist" [(visible)]="displayDialogpriceplanlist" [modal]="true"  [style]="{width: '650px'}" >
+<p-dialog header="Edit priceplanlist" [(visible)]="displayDialogpriceplanlist" [modal]="true"  [style]="{width: '650px'}" [baseZIndex]="10000">
     <form [formGroup]="loginFormpriceplanlist" (ngSubmit)="onSubmit(selectedtable)">
     <div class="p-grid ui-fluid" >
         <div class="p-col-4">
@@ -256,7 +256,7 @@
 </p-dialog>
 
 
-<p-dialog header="Edit servicetype" [(visible)]="displayDialogservicelist" [modal]="true"  [style]="{width: '650px'}" >
+<p-dialog header="Edit servicetype" [(visible)]="displayDialogservicelist" [modal]="true"  [style]="{width: '650px'}" [baseZIndex]="10000">
     <form [formGroup]="loginFormservicelist" (ngSubmit)="onSubmit(selectedtable)">
     <div class="p-grid ui-fluid" >
         <div class="p-col-4">

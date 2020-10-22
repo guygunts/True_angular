@@ -1,10 +1,14 @@
-set  ip  config in src/proxy.conf.js  
+1.set  ip api  config in proxy.conf.js  
 ####
 
 when deploy project
 
-command line : ng serve --host="host your server"  --port="port your server"
+2.into dir file and then *command pm2 start.
 
+
+
+*
+set ip Website on ecosystem.config.js before.
 
 
 fist install project(angular suport 8)

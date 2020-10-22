@@ -49,7 +49,7 @@
 
 
 
-<p-dialog header="add new offers" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" >
+<p-dialog header="add new offers" [(visible)]="displayDialog" [modal]="true"  [style]="{width: '650px'}" [baseZIndex]="10000">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="p-grid ui-fluid" >
         <div *ngIf="action == 'edit'">
